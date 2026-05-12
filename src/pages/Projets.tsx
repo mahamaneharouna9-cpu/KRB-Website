@@ -17,15 +17,16 @@ const localImagesGlob = import.meta.glob([
   '/src/assets/images/krb_images/*.{png,jpg,jpeg,JPG,PNG,JPEG}',
   '/src/assets/images/Krbimages/*.{png,jpg,jpeg,JPG,PNG,JPEG}'
 ], { eager: true, query: '?url', import: 'default' });
-const localImageUrls = Object.values(localImagesGlob) as string[];
 
-const projectsData = localImageUrls.map((url, i) => {
+const imageEntries = Object.entries(localImagesGlob) as [string, string][];
+
+const projectsData = imageEntries.map(([originalPath, url], i) => {
   // Extract filename
-  const filename = url.split('/').pop()?.split('?')[0] || '';
+  const filename = originalPath.split('/').pop()?.split('?')[0] || '';
   const decodedFilename = decodeURIComponent(filename);
   
   // Lookup metadata
-  const meta = (imageMetadataDict as any)[decodedFilename];
+  const meta = (imageMetadataDict as Record<string, any>)[decodedFilename];
   
   // Override for carefully identified "clean" images
   let overrideCategory: string | null = null;

@@ -8,19 +8,21 @@ const localImagesGlob = import.meta.glob([
 
 export const localImageUrls = Object.values(localImagesGlob) as string[];
 
-export const workerImages = localImageUrls.filter(url => {
-  const filename = url.split('/').pop()?.split('?')[0] || '';
+const imageEntries = Object.entries(localImagesGlob) as [string, string][];
+
+export const workerImages = imageEntries.filter(([originalPath]) => {
+  const filename = originalPath.split('/').pop()?.split('?')[0] || '';
   const decodedFilename = decodeURIComponent(filename);
   const meta = (imageMetadataDict as Record<string, any>)[decodedFilename];
   return meta?.hasWorkers === true;
-});
+}).map(([, url]) => url);
 
-export const environmentImages = localImageUrls.filter(url => {
-  const filename = url.split('/').pop()?.split('?')[0] || '';
+export const environmentImages = imageEntries.filter(([originalPath]) => {
+  const filename = originalPath.split('/').pop()?.split('?')[0] || '';
   const decodedFilename = decodeURIComponent(filename);
   const meta = (imageMetadataDict as Record<string, any>)[decodedFilename];
   return meta?.category === "Maîtrise & Évaluation Environnement" && !meta?.hasWorkers;
-});
+}).map(([, url]) => url);
 
 export const cleanImages = localImageUrls.filter(url => url.includes('-clean')).sort();
 
