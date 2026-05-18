@@ -3,13 +3,12 @@ import { MapPin, Globe, Landmark, Banknote, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import Projects from '../components/Projects';
 import InteractiveMap from '../components/InteractiveMap';
-import { cleanImages, getImages } from '../lib/images';
+import { cleanImages, categoryImages } from '../lib/images';
 import { useTranslation } from 'react-i18next';
 
 export default function References() {
   const { t } = useTranslation();
-  // Using imported dynamic image array to prevent Vercel build failures for untracked local binary files
-  const bgImg = getImages(1)[0];
+  const bgImg = "https://storage.googleapis.com/krbengineering/Ma%C3%AEtrise%20Environnementale/Ma%C3%AEtrise%20Environnementale/ugp%20(2).JPG";
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header Section */}

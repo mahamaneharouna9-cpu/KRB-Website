@@ -61,6 +61,7 @@ const ensureSafeImages = (images: string[]) => {
 };
 
 export const categoryImages = {
+  autres: ensureSafeImages(getFolderImages("AUTRES")),
   hydraulique: ensureSafeImages([
     ...getFolderImages("Ingénierie de l'Eau & Hydraulique"),
     getCleanImage('1778112209209'),

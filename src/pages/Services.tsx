@@ -1,18 +1,17 @@
 import React from 'react';
 import { Droplets, Leaf, Map, GraduationCap, CheckCircle, Users, Zap } from 'lucide-react';
 import { motion } from 'motion/react';
-import { categoryImages, getImages } from '../lib/images';
+import { categoryImages } from '../lib/images';
 import { useTranslation } from 'react-i18next';
 
 export default function Services() {
   const { t } = useTranslation();
-  // Falling back to the safely imported dynamic categories to prevent Vercel errors with untracked local binary assets
-  const heroImage = getImages(1)[0];
-  const eauImage = categoryImages.hydraulique[0] || getImages(1)[0];
-  const envImage = categoryImages.environnement[0] || getImages(1)[0];
-  const ruralImage = categoryImages.ruralSig[0] || getImages(1)[0];
-  const socialImage = categoryImages.sociale[0] || getImages(1)[0];
-  const energieImage = categoryImages.energie[0] || categoryImages.energie[1] || getImages(1)[0];
+  const heroImage = "https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/IMG_20190707_111413_2.jpg";
+  const eauImage = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20de%20l'Eau%20&%20Hydraulique/Ing%C3%A9nierie%20de%20l'Eau%20&%20Hydraulique/DSC02078.JPG";
+  const envImage = "https://storage.googleapis.com/krbengineering/Ma%C3%AEtrise%20Environnementale/Ma%C3%AEtrise%20Environnementale/BILD5537.JPG";
+  const ruralImage = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/aire%20Doungouro%20(2).JPG";
+  const socialImage = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20Sociale/Ing%C3%A9nierie%20Sociale/IMG_20180909_134200.jpg";
+  const energieImage = categoryImages.energie[0] || categoryImages.energie[1];
   
   return (
     <div className="flex flex-col min-h-screen">

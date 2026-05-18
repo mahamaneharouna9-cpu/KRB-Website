@@ -5,17 +5,17 @@ import { categoryImages } from '../lib/images';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import p10Img from '../assets/images/regenerated_image_1779060586342.JPG';
-import p3Img from '../assets/images/regenerated_image_1779060598895.JPG';
-import p8Img from '../assets/images/regenerated_image_1779060600115.JPG';
-import p2Img from '../assets/images/regenerated_image_1779060604404.JPG';
-import p7Img from '../assets/images/regenerated_image_1779060610291.JPG';
-import p6Img from '../assets/images/regenerated_image_1779060615627.jpg';
-import p12Img from '../assets/images/regenerated_image_1779060626734.JPG';
-import p9Img from '../assets/images/regenerated_image_1779060632405.jpg';
-import p11Img from '../assets/images/regenerated_image_1779060658088.jpg';
-import p5Img from '../assets/images/regenerated_image_1779068206635.JPG';
-import p4Img from '../assets/images/regenerated_image_1779068254552.jpg';
+const p10Img = "https://storage.googleapis.com/krbengineering/Mines%20et%20Energie/Mines%20et%20Energie/BILD0047.JPG";
+const p3Img = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20Sociale/Ing%C3%A9nierie%20Sociale/IMG-20190422-WA0042.jpg";
+const p8Img = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/aire%20Doungouro%20(2).JPG";
+const p2Img = "https://storage.googleapis.com/krbengineering/Ma%C3%AEtrise%20Environnementale/Ma%C3%AEtrise%20Environnementale/IMG_20131108_160304_606.jpg";
+const p7Img = "https://storage.googleapis.com/krbengineering/Ma%C3%AEtrise%20Environnementale/Ma%C3%AEtrise%20Environnementale/BILD5525.JPG";
+const p6Img = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20de%20l'Eau%20&%20Hydraulique/Ing%C3%A9nierie%20de%20l'Eau%20&%20Hydraulique/IMG_20161116_111545.jpg";
+const p12Img = "https://storage.googleapis.com/krbengineering/Mines%20et%20Energie/Mines%20et%20Energie/BILD5557.JPG";
+const p9Img = categoryImages.ruralSig[2] || categoryImages.ruralSig[0]; // missing mapping
+const p11Img = "https://storage.googleapis.com/krbengineering/Mines%20et%20Energie/Mines%20et%20Energie/BILD5556.JPG";
+const p5Img = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/DSC07399.JPG";
+const p4Img = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/DSC04628.JPG";
 
 // Project type definition
 export interface ProjectRef {

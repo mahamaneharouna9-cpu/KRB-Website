@@ -7,12 +7,6 @@ import { categoryImages, getImages } from '../lib/images';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import imageHistorique from '../assets/images/regenerated_image_1779050990345.jpg';
-import imageStratBg from '../assets/images/regenerated_image_1779050936820.jpg';
-import imageMission from '../assets/images/regenerated_image_1779052549136.JPG';
-import imageStrategie from '../assets/images/regenerated_image_1779053230472.JPG';
-import imagePromesses from '../assets/images/regenerated_image_1779054741274.JPG';
-
 const homeImgs = getImages(15, true); // fallback images
 
 const timelineData = [
@@ -132,7 +126,7 @@ export default function Home() {
         <img loading="lazy" 
           alt="Ingénierie Stratégique Background" 
           className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" 
-          src={imageStratBg}
+          src="https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/IMG_20180914_123128.jpg"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-surface-container-low/70 to-background/90 z-0"></div>
         <div className="max-w-container-max mx-auto px-gutter relative z-10">
@@ -296,7 +290,7 @@ export default function Home() {
                   {t("L'évolution d'une entreprise ancrée dans les réalités du terrain et tournée vers l'innovation durable.")}
                 </p>
                 <div className="rounded-lg overflow-hidden shadow-lg border border-outline-variant hidden md:block">
-                  <img loading="lazy" src={imageHistorique} alt="Ingénierie sur le terrain" className="w-full h-64 object-cover" />
+                  <img loading="lazy" src="https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/krb%20028.jpg" alt="Ingénierie sur le terrain" className="w-full h-64 object-cover" />
                 </div>
               </div>
             </motion.div>
@@ -329,21 +323,21 @@ export default function Home() {
             <InteractiveImageCard 
               title={t("Notre Mission")}
               description={t("Nous déployons une expertise technique de pointe pour assurer le développement durable, la gestion optimisée des ressources en eau et l'aménagement équilibré du territoire.")}
-              imageUrl={imageMission}
+              imageUrl="https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/DSC02401.JPG"
               delay={0.1}
             />
 
             <InteractiveImageCard 
               title={t("Notre Stratégie")}
               description={t("Notre reconnaissance s'appuie sur une intégrité éprouvée et une rigueur technique absolue, faisant de nous une autorité respectée dans l'ingénierie régionale depuis plus de trente ans.")}
-              imageUrl={imageStrategie}
+              imageUrl="https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/Notre%20stratgeie.jpg"
               delay={0.2}
             />
 
             <InteractiveImageCard 
               title={t("Nos Promesses")}
               description={t("Nous concevons et déployons des infrastructures innovantes et résilientes, capables de structurer les territoires et de sécuriser l'accès aux ressources vitales.")}
-              imageUrl={imagePromesses}
+              imageUrl="https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/IMG-20190410-WA0078.jpg"
               delay={0.3}
             />
           </div>
