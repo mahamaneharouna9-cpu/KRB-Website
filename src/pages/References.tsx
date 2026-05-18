@@ -4,12 +4,12 @@ import { motion } from 'motion/react';
 import Projects from '../components/Projects';
 import InteractiveMap from '../components/InteractiveMap';
 import { cleanImages, getImages } from '../lib/images';
-import imageBg from '../assets/images/regenerated_image_1779103464773.jpg';
 import { useTranslation } from 'react-i18next';
 
 export default function References() {
   const { t } = useTranslation();
-  const bgImg = imageBg;
+  // Using imported dynamic image array to prevent Vercel build failures for untracked local binary files
+  const bgImg = getImages(1)[0];
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header Section */}

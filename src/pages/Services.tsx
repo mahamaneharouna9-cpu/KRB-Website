@@ -1,23 +1,18 @@
 import React from 'react';
 import { Droplets, Leaf, Map, GraduationCap, CheckCircle, Users, Zap } from 'lucide-react';
 import { motion } from 'motion/react';
-import { categoryImages } from '../lib/images';
+import { categoryImages, getImages } from '../lib/images';
 import { useTranslation } from 'react-i18next';
-
-import imageHero from '../assets/images/regenerated_image_1779057160162.jpg';
-import imageEau from '../assets/images/regenerated_image_1779060586342.JPG';
-import imageEnv from '../assets/images/regenerated_image_1779060598895.JPG';
-import imageRural from '../assets/images/regenerated_image_1779060600115.JPG';
-import imageSocial from '../assets/images/regenerated_image_1779060604404.JPG';
 
 export default function Services() {
   const { t } = useTranslation();
-  const heroImage = imageHero;
-  const eauImage = imageEau;
-  const envImage = imageEnv;
-  const ruralImage = imageRural;
-  const socialImage = imageSocial;
-  const energieImage = categoryImages.energie[0] || categoryImages.energie[1];
+  // Falling back to the safely imported dynamic categories to prevent Vercel errors with untracked local binary assets
+  const heroImage = getImages(1)[0];
+  const eauImage = categoryImages.hydraulique[0] || getImages(1)[0];
+  const envImage = categoryImages.environnement[0] || getImages(1)[0];
+  const ruralImage = categoryImages.ruralSig[0] || getImages(1)[0];
+  const socialImage = categoryImages.sociale[0] || getImages(1)[0];
+  const energieImage = categoryImages.energie[0] || categoryImages.energie[1] || getImages(1)[0];
   
   return (
     <div className="flex flex-col min-h-screen">
