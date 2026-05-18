@@ -12,7 +12,7 @@ export default function About() {
       <header className="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center bg-surface-container-low overflow-hidden">
         <img loading="lazy" 
           alt="Siège KRB ou équipe sur le terrain" 
-          className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply grayscale" 
+          className="absolute inset-0 w-full h-full object-cover opacity-80" 
           src={bgImg}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-10"></div>
