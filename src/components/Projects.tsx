@@ -1,7 +1,21 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ChevronRight, ChevronLeft, Landmark, Banknote, ShieldCheck, Search, Globe, Droplet, Leaf, Tractor, HardHat, ChevronDown } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, Landmark, Banknote, ShieldCheck, Search, Globe, Droplet, Leaf, Tractor, HardHat, ChevronDown, ImageIcon } from 'lucide-react';
 import { categoryImages } from '../lib/images';
+import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import p10Img from '../assets/images/regenerated_image_1779060586342.JPG';
+import p3Img from '../assets/images/regenerated_image_1779060598895.JPG';
+import p8Img from '../assets/images/regenerated_image_1779060600115.JPG';
+import p2Img from '../assets/images/regenerated_image_1779060604404.JPG';
+import p7Img from '../assets/images/regenerated_image_1779060610291.JPG';
+import p6Img from '../assets/images/regenerated_image_1779060615627.jpg';
+import p12Img from '../assets/images/regenerated_image_1779060626734.JPG';
+import p9Img from '../assets/images/regenerated_image_1779060632405.jpg';
+import p11Img from '../assets/images/regenerated_image_1779060658088.jpg';
+import p5Img from '../assets/images/regenerated_image_1779068206635.JPG';
+import p4Img from '../assets/images/regenerated_image_1779068254552.jpg';
 
 // Project type definition
 export interface ProjectRef {
@@ -22,7 +36,13 @@ export interface ProjectRef {
   image?: string;
 }
 
-const mockProjects: ProjectRef[] = [
+const SECTOR_EAU = "Ingénierie de l'Eau & Hydraulique";
+const SECTOR_ENV = "Maîtrise Environnementale";
+const SECTOR_RUR = "Développement Rural & Urbain";
+const SECTOR_SOC = "Ingénierie Sociale";
+const SECTOR_MIN = "Mines et Energie";
+
+const baseProjects: ProjectRef[] = [
   {
     id: "p1",
     name: "PRRIA",
@@ -31,7 +51,7 @@ const mockProjects: ProjectRef[] = [
     valeur: "651.9M FCFA",
     image: categoryImages.hydraulique[0],
     details: "Conception assistée (APS/APD), modélisations géotechniques résilientes face aux contraintes du Sahel. Suivi rigoureux de l'installation de nombreux puits et barrages.",
-    sector: "Hydraulique",
+    sector: SECTOR_EAU,
     numericValue: 651950000,
     completionYear: 2022,
     achievements: [
@@ -55,9 +75,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Programme de Réhabilitation et de Renforcement (Bassin du lac Tchad)",
     client: "Commission du Bassin du Lac Tchad",
     valeur: "473M FCFA",
-    image: categoryImages.environnement[0],
+    image: p2Img,
     details: "Études EIES très poussées visant une perturbation nette zéro. Déploiement d'ingénierie environnementale pour le dragage et l'aménagement antiérosif.",
-    sector: "Environnement",
+    sector: SECTOR_ENV,
     numericValue: 473000000,
     completionYear: 2020,
     achievements: [
@@ -79,8 +99,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Appui aux Réfugiés et aux Communautés d’Accueil",
     client: "Banque Mondiale",
     valeur: "78.1M FCFA",
+    image: p3Img,
     details: "Conception modulaire : Études de faisabilité minutieuses pour installer des \"Kits Agricoles\" standardisés (forages, mares) sans surmener la nappe phréatique.",
-    sector: "Développement Rural",
+    sector: SECTOR_SOC,
     numericValue: 78100000,
     completionYear: 2021,
     achievements: [
@@ -101,8 +122,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Développement de l’Elevage dans le Liptako Gourma",
     client: "Autorité de Développement",
     valeur: "462M FCFA",
+    image: p4Img,
     details: "Études et supervision intégrées d'aménagements ruraux. Emploi intensif de briques stabilisées et concassés locaux pour les abattoirs vétérinaires.",
-    sector: "Développement Rural",
+    sector: SECTOR_RUR,
     numericValue: 462000000,
     completionYear: 2012,
     achievements: [
@@ -123,9 +145,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Réhabilitation et Mise aux Normes de l'Abattoir Frigorifique",
     client: "PRACC / BADEA",
     valeur: "115K $US",
-    image: categoryImages.ruralSig[0],
+    image: p5Img,
     details: "Audits de stabilité architecturaux (scan 3D) pour intégrer de nouvelles installations frigorifiques à l'ammoniac hautes capacités et stations de biodigesteurs.",
-    sector: "Génie Civil & Industriel",
+    sector: SECTOR_MIN,
     numericValue: 115000 * 600,
     completionYear: 2015,
     achievements: [
@@ -147,8 +169,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Adduction d'Eau Potable pour 15 villages de la région de Dosso",
     client: "Ministère de l'Hydraulique",
     valeur: "310M FCFA",
+    image: p6Img,
     details: "Raccordement au réseau d'un château d'eau principal et de réseaux secondaires. Supervision technique jusqu'à la réception.",
-    sector: "Hydraulique",
+    sector: SECTOR_EAU,
     numericValue: 310000000,
     completionYear: 2018,
     achievements: [
@@ -166,8 +189,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Création de ceintures vertes forestières autour des axes routiers",
     client: "Fonds pour l'Environnement Mondial",
     valeur: "185M FCFA",
+    image: p7Img,
     details: "Conception du dispositif, sélection des essences et supervision des plantations massives avec approche HIMO (Haute Intensité de Main d'Oeuvre).",
-    sector: "Environnement",
+    sector: SECTOR_ENV,
     numericValue: 185000000,
     completionYear: 2019,
     achievements: [
@@ -185,8 +209,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Programme d’Appui au Secteur de l’Éducation (Infrastructures)",
     client: "KfW",
     valeur: "850M FCFA",
+    image: p8Img,
     details: "Maîtrise d'œuvre pour la construction de 120 salles de classe écologiques et bioclimatiques à Zinder.",
-    sector: "Génie Civil & Industriel",
+    sector: SECTOR_SOC,
     numericValue: 850000000,
     completionYear: 2021,
     achievements: [
@@ -204,8 +229,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Plan de Développement Urbain de la ville de Maradi horizon 2040",
     client: "Ministère de l'Urbanisme",
     valeur: "120M FCFA",
+    image: p9Img,
     details: "Production de documents d'urbanisme complets, incluant zonage, réserves foncières et plans de circulation.",
-    sector: "Développement Rural", // treating as general development
+    sector: SECTOR_RUR, // treating as general development
     numericValue: 120000000,
     completionYear: 2017,
     achievements: [
@@ -223,8 +249,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Étude d'Impact Environnemental et Social d'une exploitation aurifère (Téra)",
     client: "Sopamin",
     valeur: "450M FCFA",
+    image: p10Img,
     details: "Étude exhaustive des impacts sur les aquifères, la faune locale, et plans de relocalisation des populations (PAR).",
-    sector: "Environnement",
+    sector: SECTOR_ENV,
     numericValue: 450000000,
     completionYear: 2023,
     achievements: [
@@ -243,8 +270,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Conception de barrages collinaires et micro-barrages",
     client: "AFD",
     valeur: "390M FCFA",
+    image: p11Img,
     details: "Dans les koris de l'Aïr, modélisation hydrologique pour retenir les crues éclairs et permettre la recharge des nappes.",
-    sector: "Hydraulique",
+    sector: SECTOR_EAU,
     numericValue: 390000000,
     completionYear: 2016,
     achievements: [
@@ -262,8 +290,9 @@ const mockProjects: ProjectRef[] = [
     desc: "Aménagement d'une route rurale en terre moderne (55km)",
     client: "Fonds d'Entretien Routier",
     valeur: "720M FCFA",
+    image: p12Img,
     details: "Contrôle géotechnique continu des purges, remblais et du traitement de surface au sel stabilisant.",
-    sector: "Génie Civil & Industriel",
+    sector: SECTOR_MIN,
     numericValue: 720000000,
     completionYear: 2018,
     achievements: [
@@ -277,27 +306,40 @@ const mockProjects: ProjectRef[] = [
   }
 ];
 
+const mockProjects: ProjectRef[] = [...baseProjects];
+
 const ITEMS_PER_PAGE = 10;
 
 const SectorIcon = ({ sector, className }: { sector: string, className?: string }) => {
   switch (sector) {
-    case 'Hydraulique': return <Droplet className={className} />;
-    case 'Environnement': return <Leaf className={className} />;
-    case 'Développement Rural': return <Tractor className={className} />;
-    case 'Génie Civil & Industriel': return <HardHat className={className} />;
+    case SECTOR_EAU: return <Droplet className={className} />;
+    case SECTOR_ENV: return <Leaf className={className} />;
+    case SECTOR_RUR: return <Tractor className={className} />;
+    case SECTOR_SOC: return <Landmark className={className} />;
+    case SECTOR_MIN: return <HardHat className={className} />;
     default: return <Landmark className={className} />;
   }
 };
 
 const getDefaultImage = (sector: string) => {
   switch (sector) {
-    case 'Hydraulique': return categoryImages.hydraulique[0];
-    case 'Environnement': return categoryImages.environnement[0];
-    case 'Développement Rural': return categoryImages.ruralSig[0];
-    case 'Génie Civil & Industriel': return categoryImages.ruralSig[0];
-    case 'Ingénierie Sociale': return categoryImages.sociale[0];
-    case 'Mines et Énergie': return categoryImages.energie[0];
+    case SECTOR_EAU: return categoryImages.hydraulique[0];
+    case SECTOR_ENV: return categoryImages.environnement[0];
+    case SECTOR_RUR: return categoryImages.ruralSig[0];
+    case SECTOR_SOC: return categoryImages.sociale[0];
+    case SECTOR_MIN: return categoryImages.energie[0];
     default: return categoryImages.ruralSig[0];
+  }
+};
+
+const getSectorImages = (sector: string) => {
+  switch (sector) {
+    case SECTOR_EAU: return categoryImages.hydraulique || [];
+    case SECTOR_ENV: return categoryImages.environnement || [];
+    case SECTOR_RUR: return categoryImages.ruralSig || [];
+    case SECTOR_SOC: return categoryImages.sociale || [];
+    case SECTOR_MIN: return categoryImages.energie || [];
+    default: return [];
   }
 };
 
@@ -344,14 +386,26 @@ const ExpandableSection = ({ title, icon: Icon, children, defaultExpanded = fals
 };
 
 export default function Projects() {
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const initialFilter = searchParams.get('category') || 'Tous';
+
   const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState('Tous');
+  const [filter, setFilter] = useState(initialFilter);
   const [sort, setSort] = useState('date-desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRef, setSelectedRef] = useState<ProjectRef | null>(null);
   const [highlightedRefId, setHighlightedRefId] = useState<string | null>(null);
 
-  const sectors = ['Tous', 'Hydraulique', 'Environnement', 'Développement Rural', 'Génie Civil & Industriel'];
+  const sectors = ['Tous', SECTOR_EAU, SECTOR_ENV, SECTOR_RUR, SECTOR_SOC, SECTOR_MIN];
+
+  // Update filter if URL changes externally
+  React.useEffect(() => {
+    const category = searchParams.get('category');
+    if (category && sectors.includes(category)) {
+      setFilter(category);
+    }
+  }, [searchParams]);
 
   const filteredAndSortedRefs = useMemo(() => {
     let result = [...mockProjects];
@@ -459,7 +513,7 @@ export default function Projects() {
         break;
     }
     return (
-      <span className={`px-2.5 py-1 rounded-full text-xs font-bold border flex items-center gap-1.5 ${style}`} title="Bailleur de fonds">
+      <span className={`px-2.5 py-1 rounded-full text-xs font-bold border flex items-center gap-1.5 ${style}`} title={t("Bailleur de fonds")}>
         <Icon className="w-3.5 h-3.5" /> {code}
       </span>
     );
@@ -473,34 +527,37 @@ export default function Projects() {
           {/* Breadcrumbs */}
           <div className="flex flex-wrap items-center space-x-2 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-3">
             <a href="#accueil" className="cursor-pointer hover:text-primary transition-colors">
-              Accueil
+              {t('Accueil')}
             </a>
             <ChevronRight className="w-4 h-4 flex-shrink-0" />
             <span 
               className="cursor-pointer hover:text-primary transition-colors"
               onClick={() => { setFilter('Tous'); setSort('date-desc'); }}
             >
-              Projets
+              {t('Projets')}
             </span>
             <ChevronRight className="w-4 h-4 flex-shrink-0" />
             <span className="text-secondary font-bold">
-              {filter}
+              {t(filter)}
             </span>
           </div>
           
-          <h2 className="font-headline-lg text-headline-lg text-primary">Liste des Interventions</h2>
+          <h2 className="font-headline-lg text-headline-lg text-primary">{t('Liste des Interventions')}</h2>
         </div>
-        
+      </div>
+      
+      {/* Search & Filters */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
           <div className="flex flex-col w-full sm:w-64">
-            <label className="text-label-sm font-label-sm text-on-surface-variant mb-1 ml-1">Recherche</label>
+            <label className="text-label-sm font-label-sm text-on-surface-variant mb-1 ml-1">{t('Recherche')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-4 w-4 text-outline" />
               </div>
               <input
                 type="text"
-                placeholder="Ex: PRRIA, Banque Mondiale..."
+                placeholder={t("Ex: PRRIA, Banque Mondiale...")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="block w-full pl-9 pr-3 py-2 border border-outline-variant rounded-md text-body-md bg-surface placeholder-outline focus:outline-none focus:border-primary text-on-surface"
@@ -508,26 +565,26 @@ export default function Projects() {
             </div>
           </div>
           <div className="flex flex-col">
-            <label className="text-label-sm font-label-sm text-on-surface-variant mb-1 ml-1">Domaine</label>
+            <label className="text-label-sm font-label-sm text-on-surface-variant mb-1 ml-1">{t('Domaine')}</label>
             <select 
               value={filter} 
               onChange={e => setFilter(e.target.value)}
               className="bg-surface border border-outline-variant rounded-md px-4 py-2 text-body-md focus:outline-none focus:border-primary text-on-surface h-[42px]"
             >
-              {sectors.map(s => <option key={s} value={s}>{s}</option>)}
+              {sectors.map(s => <option key={s} value={s}>{t(s)}</option>)}
             </select>
           </div>
           <div className="flex flex-col">
-            <label className="text-label-sm font-label-sm text-on-surface-variant mb-1 ml-1">Tri</label>
+            <label className="text-label-sm font-label-sm text-on-surface-variant mb-1 ml-1">{t('Tri')}</label>
             <select 
               value={sort} 
               onChange={e => setSort(e.target.value)}
               className="bg-surface border border-outline-variant rounded-md px-4 py-2 text-body-md focus:outline-none focus:border-primary text-on-surface h-[42px]"
             >
-              <option value="date-desc">Date (Récent)</option>
-              <option value="date-asc">Date (Ancien)</option>
-              <option value="val-desc">Valeur (Décroissant)</option>
-              <option value="val-asc">Valeur (Croissant)</option>
+              <option value="date-desc">{t('Date (Récent)')}</option>
+              <option value="date-asc">{t('Date (Ancien)')}</option>
+              <option value="val-desc">{t('Valeur (Décroissant)')}</option>
+              <option value="val-asc">{t('Valeur (Croissant)')}</option>
             </select>
           </div>
         </div>
@@ -535,102 +592,102 @@ export default function Projects() {
 
       {/* Projects Grid */}
       <div className="space-y-6">
-        <AnimatePresence mode="popLayout">
-          {currentRefs.map((ref, idx) => (
-            <motion.div 
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              key={ref.id}
-              id={`project-item-${ref.id}`}
-              onClick={() => setSelectedRef(ref)}
-              className={`rounded-xl border cursor-pointer transition-all duration-300 flex flex-col md:flex-row group overflow-hidden ${
-                highlightedRefId === ref.id 
-                  ? 'bg-primary/5 border-primary shadow-lg ring-2 ring-primary/20 scale-[1.02] z-10' 
-                  : 'bg-surface border-outline-variant shadow-sm hover:shadow-md'
-              }`}
+          <AnimatePresence mode="popLayout">
+            {currentRefs.map((ref, idx) => (
+              <motion.div 
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                key={ref.id}
+                id={`project-item-${ref.id}`}
+                onClick={() => setSelectedRef(ref)}
+                className={`rounded-xl border cursor-pointer transition-all duration-300 flex flex-col md:flex-row group overflow-hidden ${
+                  highlightedRefId === ref.id 
+                    ? 'bg-primary/5 border-primary shadow-lg ring-2 ring-primary/20 scale-[1.02] z-10' 
+                    : 'bg-surface border-outline-variant shadow-sm hover:shadow-md'
+                }`}
+              >
+                <div className="w-full md:w-[240px] h-48 md:h-auto flex-shrink-0 relative overflow-hidden bg-surface-container">
+                  <img loading="lazy" 
+                    src={ref.image || getDefaultImage(ref.sector)} 
+                    alt={ref.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/20" />
+                </div>
+                
+                <div className="p-6 flex flex-col gap-4 w-full">
+                  <div className="flex flex-col md:flex-row justify-between md:items-start gap-4">
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <h3 className="font-display-sm text-display-sm text-primary group-hover:text-secondary transition-colors">{t(ref.name)}</h3>
+                      <FunderBadge type={ref.funderType} code={ref.funderCode} />
+                    </div>
+                    <p className="font-label-lg text-on-surface-variant max-w-2xl">{t(ref.desc)}</p>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-medium">{ref.completionYear}</span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 border-t border-outline-variant pt-4">
+                  <p className="font-body-md text-on-surface-variant line-clamp-2 md:col-span-1">{t(ref.details)}</p>
+                  <div className="flex items-center md:justify-end gap-3 md:col-span-1">
+                    <div className="text-sm border border-outline rounded-md px-2.5 py-1 text-on-surface-variant bg-surface-container-lowest flex items-center gap-1.5">
+                      <SectorIcon sector={ref.sector} className="w-4 h-4 text-tertiary" />
+                      {t(ref.sector)}
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+          {currentRefs.length === 0 && (
+            <div className="text-center py-16 bg-surface-container-low rounded-xl border border-outline-variant border-dashed">
+              <span className="material-symbols-outlined text-outline text-4xl mb-2 block">sentiment_dissatisfied</span>
+              <p className="text-on-surface-variant font-body-lg">{t('Aucun projet trouvé pour cette sélection.')}</p>
+            </div>
+          )}
+        </div>
+  
+        {/* Pagination component */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center space-x-2 mt-12 bg-surface p-4 rounded-xl border border-outline-variant shadow-sm w-fit mx-auto">
+            <button 
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-2 rounded-md hover:bg-surface-variant text-primary disabled:text-outline disabled:hover:bg-transparent transition-colors"
             >
-              <div className="w-full md:w-[240px] h-48 md:h-auto flex-shrink-0 relative overflow-hidden bg-surface-container">
-                <img 
-                  src={ref.image || getDefaultImage(ref.sector)} 
-                  alt={ref.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/20" />
-              </div>
-              
-              <div className="p-6 flex flex-col gap-4 w-full">
-                <div className="flex flex-col md:flex-row justify-between md:items-start gap-4">
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h3 className="font-display-sm text-display-sm text-primary group-hover:text-secondary transition-colors">{ref.name}</h3>
-                    <FunderBadge type={ref.funderType} code={ref.funderCode} />
-                  </div>
-                  <p className="font-label-lg text-on-surface-variant max-w-2xl">{ref.desc}</p>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-medium">{ref.completionYear}</span>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 border-t border-outline-variant pt-4">
-                <p className="font-body-md text-on-surface-variant line-clamp-2 md:col-span-1">{ref.details}</p>
-                <div className="flex items-center md:justify-end gap-3 md:col-span-1">
-                  <div className="text-sm border border-outline rounded-md px-2.5 py-1 text-on-surface-variant bg-surface-container-lowest flex items-center gap-1.5">
-                    <SectorIcon sector={ref.sector} className="w-4 h-4 text-tertiary" />
-                    {ref.sector}
-                  </div>
-                </div>
-              </div>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-        {currentRefs.length === 0 && (
-          <div className="text-center py-16 bg-surface-container-low rounded-xl border border-outline-variant border-dashed">
-            <span className="material-symbols-outlined text-outline text-4xl mb-2 block">sentiment_dissatisfied</span>
-            <p className="text-on-surface-variant font-body-lg">Aucun projet trouvé pour cette sélection.</p>
+              <ChevronLeft size={20} />
+            </button>
+            
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`w-10 h-10 rounded-md font-label-lg transition-colors ${currentPage === i + 1 ? 'bg-primary text-on-primary shadow-sm' : 'hover:bg-surface-variant text-on-surface'}`}
+              >
+                {i + 1}
+              </button>
+            ))}
+  
+            <button 
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-2 rounded-md hover:bg-surface-variant text-primary disabled:text-outline disabled:hover:bg-transparent transition-colors"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
         )}
-      </div>
-
-      {/* Pagination component */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center space-x-2 mt-12 bg-surface p-4 rounded-xl border border-outline-variant shadow-sm w-fit mx-auto">
-          <button 
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
-            className="p-2 rounded-md hover:bg-surface-variant text-primary disabled:text-outline disabled:hover:bg-transparent transition-colors"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          
-          {Array.from({ length: totalPages }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`w-10 h-10 rounded-md font-label-lg transition-colors ${currentPage === i + 1 ? 'bg-primary text-on-primary shadow-sm' : 'hover:bg-surface-variant text-on-surface'}`}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button 
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
-            className="p-2 rounded-md hover:bg-surface-variant text-primary disabled:text-outline disabled:hover:bg-transparent transition-colors"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-      )}
 
       {/* Project Modal */}
       <AnimatePresence>
         {selectedRef && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center sm:p-6" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -648,18 +705,18 @@ export default function Projects() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300, mass: 0.8 }}
-              className="relative w-full max-w-4xl max-h-[90vh] bg-surface rounded-xl shadow-xl overflow-hidden flex flex-col border border-outline-variant"
+              className="relative w-full h-full sm:h-auto sm:max-h-[90vh] sm:w-11/12 max-w-4xl bg-surface sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col sm:border sm:border-outline-variant z-10"
             >
               {/* Header fixed */}
-              <div className="flex justify-between items-start p-6 border-b border-outline-variant bg-surface">
+              <div className="flex justify-between items-start p-4 sm:p-6 border-b border-outline-variant bg-surface shrink-0 sticky top-0 z-20">
                 <div className="pr-12">
-                  <h2 id="modal-title" className="font-display-lg text-display-lg text-primary mb-1">{selectedRef.name}</h2>
-                  <p className="font-headline-sm text-on-surface-variant">{selectedRef.desc}</p>
+                  <h2 id="modal-title" className="font-display-sm sm:font-display-lg text-2xl sm:text-display-lg text-primary mb-1">{t(selectedRef.name)}</h2>
+                  <p className="font-headline-sm sm:text-headline-sm text-sm text-on-surface-variant line-clamp-2 sm:line-clamp-none">{t(selectedRef.desc)}</p>
                 </div>
                 <button 
                   onClick={() => setSelectedRef(null)}
-                  aria-label="Fermer le modal"
-                  className="w-10 h-10 shrink-0 bg-surface-container hover:bg-surface-variant rounded-full flex items-center justify-center text-on-surface-variant transition-colors absolute top-6 right-6"
+                  aria-label={t("Fermer le modal")}
+                  className="w-10 h-10 shrink-0 bg-surface-container hover:bg-surface-variant rounded-full flex items-center justify-center text-on-surface-variant transition-colors absolute top-4 sm:top-6 right-4 sm:right-6"
                 >
                   <X size={20} />
                 </button>
@@ -671,22 +728,22 @@ export default function Projects() {
                 {/* Meta details banner */}
                 <div className="bg-surface-container-lowest border border-outline-variant rounded-lg p-5 mb-8 flex flex-wrap gap-x-12 gap-y-4">
                   <div>
-                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">Maitre d'ouvrage</span>
-                    <span className="font-body-lg text-primary">{selectedRef.client}</span>
+                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">{t("Maitre d'ouvrage")}</span>
+                    <span className="font-body-lg text-primary">{t(selectedRef.client)}</span>
                   </div>
                   <div>
-                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">Financement</span>
+                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">{t('Financement')}</span>
                     <span className="font-body-lg text-primary">{selectedRef.valeur} ({selectedRef.funderCode})</span>
                   </div>
                   <div>
-                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">Période</span>
+                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">{t('Période')}</span>
                     <span className="font-body-lg text-primary">{selectedRef.completionYear}</span>
                   </div>
                   <div>
-                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">Domaine</span>
+                    <span className="block text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1">{t('Domaine')}</span>
                     <span className="font-body-lg text-primary flex items-center gap-2">
                        <SectorIcon sector={selectedRef.sector} className="w-5 h-5 text-tertiary" />
-                       {selectedRef.sector}
+                       {t(selectedRef.sector)}
                     </span>
                   </div>
                 </div>
@@ -694,7 +751,7 @@ export default function Projects() {
                 {/* Progress Bar */}
                 <div className="mb-10">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-label-lg text-on-surface-variant font-medium">État d'avancement</span>
+                    <span className="font-label-lg text-on-surface-variant font-medium">{t("État d'avancement")}</span>
                     <span className="font-label-lg text-primary font-bold">{selectedRef.progress || 100}%</span>
                   </div>
                   <div className="w-full bg-surface-container-low rounded-full h-2.5 border border-outline-variant overflow-hidden">
@@ -710,23 +767,23 @@ export default function Projects() {
                 <div className="mb-10">
                   <h4 className="font-headline-md text-headline-md text-primary mb-3 flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-tertiary" /> 
-                    Contexte & Synthèse
+                    {t('Contexte & Synthèse')}
                   </h4>
                   <p className="font-body-lg text-on-surface-variant leading-relaxed">
-                    {selectedRef.details}
+                    {t(selectedRef.details)}
                   </p>
                 </div>
                 
                 {/* Key Achievements Expandable Section */}
                 {selectedRef.achievements && selectedRef.achievements.length > 0 && (
-                  <ExpandableSection title="Réalisations Clés" icon={ShieldCheck} defaultExpanded={true}>
+                  <ExpandableSection title={t("Réalisations Clés")} icon={ShieldCheck} defaultExpanded={true}>
                     <div className="overflow-x-auto rounded-lg border border-outline-variant">
                       <table className="w-full text-left font-body-md">
                         <thead className="bg-surface-container-low border-b border-outline-variant">
                           <tr>
                             <th className="px-5 py-3 font-label-lg text-primary tracking-wide">ID</th>
-                            <th className="px-5 py-3 font-label-lg text-primary tracking-wide">Description de l'Objectif Atteint</th>
-                            <th className="px-5 py-3 font-label-lg text-primary tracking-wide text-center">Statut</th>
+                            <th className="px-5 py-3 font-label-lg text-primary tracking-wide">{t("Description de l'Objectif Atteint")}</th>
+                            <th className="px-5 py-3 font-label-lg text-primary tracking-wide text-center">{t('Statut')}</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-outline-variant bg-surface-container-lowest">
@@ -738,10 +795,10 @@ export default function Projects() {
                               className="transition-colors group cursor-default"
                             >
                               <td className="px-5 py-4 font-mono text-xs text-outline">{String(index + 1).padStart(2, '0')}</td>
-                              <td className="px-5 py-4 text-on-surface">{item}</td>
+                              <td className="px-5 py-4 text-on-surface">{t(item)}</td>
                               <td className="px-5 py-4 text-center">
                                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
-                                  Validé
+                                  {t('Validé')}
                                 </span>
                               </td>
                             </motion.tr>
@@ -754,7 +811,7 @@ export default function Projects() {
 
                 {/* Specifics Expandable Section */}
                 {selectedRef.specs && selectedRef.specs.length > 0 && (
-                  <ExpandableSection title="Spécifications Techniques" icon={ShieldCheck} defaultExpanded={false}>
+                  <ExpandableSection title={t("Spécifications Techniques")} icon={ShieldCheck} defaultExpanded={false}>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {selectedRef.specs.map((item, i) => (
                           <motion.li 
@@ -764,7 +821,7 @@ export default function Projects() {
                             className="flex items-start font-body-md text-on-surface-variant bg-surface p-4 rounded-xl border border-outline-variant hover:shadow-md cursor-default transition-all"
                           >
                             <div className="shrink-0 w-2 h-2 rounded-full bg-secondary mt-2 mr-3" />
-                            <span className="leading-snug">{item}</span>
+                            <span className="leading-snug">{t(item)}</span>
                           </motion.li>
                         ))}
                     </ul>

@@ -12,6 +12,7 @@ import Services from './pages/Services';
 import References from './pages/References';
 import About from './pages/About';
 import Projets from './pages/Projets';
+import { ContactPage } from './components/Pages';
 
 function MainLayout() {
   const location = useLocation();
@@ -36,6 +37,9 @@ function MainLayout() {
               </section>
               <section id="about">
                 <About />
+              </section>
+              <section id="contact" className="bg-surface">
+                <ContactPage />
               </section>
             </>
           } />

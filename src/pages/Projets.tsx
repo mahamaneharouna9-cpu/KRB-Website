@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLocation } from 'react-router-dom';
-import imageMetadataDict from '../data/image_metadata.json';
+import { categoryImages } from '../lib/images';
+import { useTranslation } from 'react-i18next';
 
 const categories = [
   "Tous",
@@ -12,44 +13,47 @@ const categories = [
   "Mines et Énergie"
 ];
 
-const localImagesGlob = import.meta.glob([
-  '/src/assets/images/Krb images/*.{png,jpg,jpeg,JPG,PNG,JPEG}',
-  '/src/assets/images/krb_images/*.{png,jpg,jpeg,JPG,PNG,JPEG}',
-  '/src/assets/images/Krbimages/*.{png,jpg,jpeg,JPG,PNG,JPEG}'
-], { eager: true, query: '?url', import: 'default' });
+const categoryMap = {
+  "Hydraulique": categoryImages.hydraulique,
+  "Maîtrise & Évaluation Environnement": categoryImages.environnement,
+  "Développement Urbain, Rural & SIG": categoryImages.ruralSig,
+  "Ingénierie Sociale": categoryImages.sociale,
+  "Mines et Énergie": categoryImages.energie
+};
 
-const imageEntries = Object.entries(localImagesGlob) as [string, string][];
+const allProjectImages: { id: number, title: string, category: string, image: string, size: string }[] = [];
+let imgCounter = 0;
 
-const projectsData = imageEntries.map(([originalPath, url], i) => {
-  // Extract filename
-  const filename = originalPath.split('/').pop()?.split('?')[0] || '';
-  const decodedFilename = decodeURIComponent(filename);
-  
-  // Lookup metadata
-  const meta = (imageMetadataDict as Record<string, any>)[decodedFilename];
-  
-  // Override for carefully identified "clean" images
-  let overrideCategory: string | null = null;
-  if (filename.includes('1778110779689') || filename.includes('1778112165114') || filename.includes('1778112209209')) overrideCategory = "Hydraulique";
-  if (filename.includes('1778110884007') || filename.includes('1778112222216')) overrideCategory = "Maîtrise & Évaluation Environnement";
-  if (filename.includes('1778110799142') || filename.includes('1778112180879')) overrideCategory = "Développement Urbain, Rural & SIG";
-  if (filename.includes('1778110789403') || filename.includes('1778112194658')) overrideCategory = "Mines et Énergie";
-  
-  const assignedCategory = overrideCategory || meta?.category || categories[(i % (categories.length - 1)) + 1];
-  const title = meta?.title || "Projet KRB " + (i + 1);
-  const size = i % 8 === 0 ? "large" : (i % 5 === 0 ? "tall" : (i % 6 === 0 ? "wide" : "square"));
-  
-  return {
-    id: i + 1,
-    title,
-    category: assignedCategory,
-    image: url,
-    size
-  }
+Object.entries(categoryMap).forEach(([catName, urls]) => {
+  urls.forEach((url, idx) => {
+    imgCounter++;
+    // Simple deterministic sizing based on index
+    const size = imgCounter % 8 === 0 ? "large" : (imgCounter % 5 === 0 ? "tall" : (imgCounter % 6 === 0 ? "wide" : "square"));
+    
+    // Attempt to extract string between slashes for a nice title
+    let title = `Intervention ${catName.split(' ')[0]} ${idx + 1}`;
+    
+    allProjectImages.push({
+      id: imgCounter,
+      title,
+      category: catName,
+      image: url,
+      size
+    });
+  });
+});
+
+// Since the array order is purely by category right now, let's shuffle it deterministically 
+// so "Tous" looks like a nice mix
+const projectsData = [...allProjectImages].sort((a, b) => {
+  // simple deterministic pseudo-random hash off the id
+  return ((a.id * 7) % 10) - ((b.id * 7) % 10);
 });
 
 export default function Projets() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("Tous");
+  const [failedImageIds, setFailedImageIds] = useState<Set<number>>(new Set());
   const location = useLocation();
 
   useEffect(() => {
@@ -60,9 +64,10 @@ export default function Projets() {
     }
   }, [location.search]);
 
-  const filteredProjects = activeCategory === "Tous" 
+  const filteredProjects = (activeCategory === "Tous" 
     ? projectsData 
-    : projectsData.filter(p => p.category === activeCategory);
+    : projectsData.filter(p => p.category === activeCategory)
+  ).filter(p => !failedImageIds.has(p.id));
 
   return (
     <div className="bg-surface pt-32 pb-24 min-h-screen">
@@ -70,23 +75,23 @@ export default function Projets() {
         
         {/* Header */}
         <div className="mb-16">
-          <h1 className="font-display-lg text-5xl md:text-6xl text-primary font-bold mb-6">Nos Projets</h1>
+          <h1 className="font-display-lg text-5xl md:text-6xl text-primary font-bold mb-6">{t('Nos Projets')}</h1>
           <p className="font-body-lg text-xl text-on-surface-variant max-w-2xl">
-            Découvrez nos interventions à travers la région, illustrant notre expertise technique et notre engagement envers le développement durable.
+            {t('Découvrez nos interventions à travers la région, illustrant notre expertise technique et notre engagement envers le développement durable.')}
           </p>
         </div>
 
         {/* Tabs Filter */}
-        <div className="flex flex-wrap gap-x-8 gap-y-4 mb-16 border-b border-outline-variant pb-2">
+        <div className="flex overflow-x-auto no-scrollbar gap-x-8 gap-y-2 mb-10 md:mb-16 border-b border-outline-variant pb-2 w-full">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`font-label-lg text-lg transition-colors relative pb-2 ${
+              className={`font-label-lg text-lg transition-colors relative pb-2 whitespace-nowrap ${
                 activeCategory === cat ? 'text-primary' : 'text-on-surface-variant hover:text-primary'
               }`}
             >
-              {cat}
+              {t(cat)}
               {activeCategory === cat && (
                 <motion.div 
                   layoutId="activeTabIndicator"
@@ -119,23 +124,26 @@ export default function Projets() {
                 >
                   {/* Image with zoom effect */}
                   <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
-                    <img 
+                    <img loading="lazy" 
                       src={project.image} 
                       alt={project.title}
                       className="w-full h-full object-cover"
+                      onError={() => {
+                        setFailedImageIds(prev => new Set(prev).add(project.id));
+                      }}
                     />
                   </div>
                   
                   {/* Overlay that darkens on hover */}
-                  <div className="absolute inset-0 bg-black/20 transition-colors duration-500 group-hover:bg-black/60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent sm:bg-black/20 transition-colors duration-500 sm:group-hover:bg-black/60" />
 
                   {/* Title sliding in from bottom */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end translate-y-0 opacity-100 sm:translate-y-8 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 transition-all duration-500 ease-out">
                     <span className="font-label-sm text-secondary uppercase tracking-widest text-xs mb-2">
-                      {project.category}
+                      {t(project.category)}
                     </span>
                     <h3 className="font-headline-md text-white text-2xl font-bold leading-tight">
-                      {project.title}
+                      {t(project.title)}
                     </h3>
                   </div>
                 </motion.div>
@@ -146,7 +154,7 @@ export default function Projets() {
         
         {filteredProjects.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-on-surface-variant text-lg">Aucun projet trouvé dans cette catégorie.</p>
+            <p className="text-on-surface-variant text-lg">{t('Aucun projet trouvé dans cette catégorie.')}</p>
           </div>
         )}
 

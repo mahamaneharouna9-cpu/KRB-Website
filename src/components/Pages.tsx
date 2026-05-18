@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Droplets, Leaf, Map as MapIcon, Users, Pickaxe, Building2, Phone, Mail, MapPin, CheckCircle2, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const ServicesPage = () => (
   <div className="max-w-5xl mx-auto py-12 px-6 fade-in">
@@ -484,6 +485,7 @@ export const AboutPage = () => (
 );
 
 export const ContactPage = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = React.useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = React.useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = React.useState(false);
@@ -493,20 +495,20 @@ export const ContactPage = () => {
     const newErrors = { name: '', email: '', message: '' };
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Le nom est requis';
+      newErrors.name = t('Le nom est requis');
       isValid = false;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'L\'email est requis';
+      newErrors.email = t("L'email est requis");
       isValid = false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Format d\'email invalide';
+      newErrors.email = t("Format d'email invalide");
       isValid = false;
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Le message est requis';
+      newErrors.message = t('Le message est requis');
       isValid = false;
     }
 
@@ -535,8 +537,8 @@ export const ContactPage = () => {
     const val = e.target.value;
     setFormData({...formData, email: val});
     if (errors.email) {
-      if (!val.trim()) setErrors({...errors, email: 'L\'email est requis'});
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) setErrors({...errors, email: 'Format d\'email invalide'});
+      if (!val.trim()) setErrors({...errors, email: t("L'email est requis")});
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) setErrors({...errors, email: t("Format d'email invalide")});
       else setErrors({...errors, email: ''});
     }
   };
@@ -556,8 +558,8 @@ export const ContactPage = () => {
       <div className="bg-white rounded-[32px] shadow-[0_4px_25px_rgba(0,0,0,0.04)] border border-slate-100 overflow-hidden">
         <div className="grid md:grid-cols-2">
           <div className="p-10 md:p-16 bg-[#EEF2F6]">
-            <h1 className="text-4xl font-bold text-[#0A1629] mb-4">Contactez-nous</h1>
-            <p className="text-[#4A5568] mb-12">Notre équipe d'experts est prête à étudier vos projets d'ingénierie et d'aménagement stratégique.</p>
+            <h1 className="text-4xl font-bold text-[#0A1629] mb-4">{t('Contactez-nous')}</h1>
+            <p className="text-[#4A5568] mb-12">{t("Notre équipe d'experts est prête à étudier vos projets d'ingénierie et d'aménagement stratégique.")}</p>
             
             <div className="space-y-8">
               <div className="flex items-start gap-5">
@@ -565,7 +567,7 @@ export const ContactPage = () => {
                   <MapPin className="text-[#031F41]" size={20} />
                 </div>
                 <div>
-                  <strong className="block text-[#0A1629] text-lg mb-1">Siège Niger</strong>
+                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Siège Niger')}</strong>
                   <span className="text-[#4A5568] leading-relaxed block">68 Rue du Sahel "Quartier Terminus"<br/>B.P. 10 265 Niamey, Niger</span>
                 </div>
               </div>
@@ -575,8 +577,8 @@ export const ContactPage = () => {
                   <Phone className="text-[#031F41]" size={20} />
                 </div>
                 <div>
-                  <strong className="block text-[#0A1629] text-lg mb-1">Téléphone & Fax</strong>
-                  <span className="text-[#4A5568] leading-relaxed block">Tél: 20 73 47 53<br/>Fax: 20 73 53 83</span>
+                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Téléphone & Fax')}</strong>
+                  <span className="text-[#4A5568] leading-relaxed block">{t('Tél')} : 20 73 47 53<br/>{t('Fax')} : 20 73 53 83</span>
                 </div>
               </div>
 
@@ -585,7 +587,7 @@ export const ContactPage = () => {
                   <Mail className="text-[#031F41]" size={20} />
                 </div>
                 <div>
-                  <strong className="block text-[#0A1629] text-lg mb-1">Email</strong>
+                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Email')}</strong>
                   <span className="text-[#4A5568] leading-relaxed block">krb@intnet.ne<br/>krb@krbconseils.com</span>
                 </div>
               </div>
@@ -595,37 +597,37 @@ export const ContactPage = () => {
           <div className="p-10 md:p-16">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-sm font-semibold text-[#0A1629] mb-2 uppercase tracking-wide">Nom Complet</label>
+                <label className="block text-sm font-semibold text-[#0A1629] mb-2 uppercase tracking-wide">{t('Nom Complet')}</label>
                 <input 
                   type="text" 
                   value={formData.name}
                   onChange={handleNameChange}
                   onBlur={() => {
-                    if (!formData.name.trim()) setErrors(prev => ({...prev, name: 'Le nom est requis'}));
+                    if (!formData.name.trim()) setErrors(prev => ({...prev, name: t('Le nom est requis')}));
                   }}
                   className={`w-full bg-[#FAFAFA] border-[1.5px] ${errors.name ? 'border-red-500' : 'border-[#E2E8F0]'} rounded-[16px] px-5 py-4 focus:outline-none focus:border-[#8FB1D0] transition-colors text-base`} 
-                  placeholder="Votre nom" 
+                  placeholder={t("Votre nom")} 
                 />
                 {errors.name && <span className="text-red-500 text-sm mt-1">{errors.name}</span>}
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#0A1629] mb-2 uppercase tracking-wide">Email</label>
+                <label className="block text-sm font-semibold text-[#0A1629] mb-2 uppercase tracking-wide">{t('Email')}</label>
                 <input 
                   type="email" 
                   value={formData.email}
                   onChange={handleEmailChange}
                   onBlur={() => {
-                    if (!formData.email.trim()) setErrors(prev => ({...prev, email: 'L\'email est requis'}));
-                    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) setErrors(prev => ({...prev, email: 'Format d\'email invalide'}));
+                    if (!formData.email.trim()) setErrors(prev => ({...prev, email: t("L'email est requis")}));
+                    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) setErrors(prev => ({...prev, email: t("Format d'email invalide")}));
                   }}
                   className={`w-full bg-[#FAFAFA] border-[1.5px] ${errors.email ? 'border-red-500' : 'border-[#E2E8F0]'} rounded-[16px] px-5 py-4 focus:outline-none focus:border-[#8FB1D0] transition-colors text-base`} 
-                  placeholder="votre@email.com" 
+                  placeholder={t("votre@email.com")} 
                 />
                 {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className="block text-sm font-semibold text-[#0A1629] uppercase tracking-wide">Message</label>
+                  <label className="block text-sm font-semibold text-[#0A1629] uppercase tracking-wide">{t('Message')}</label>
                   <span className="text-xs font-medium text-[#8FB1D0]">{formData.message.length}/500</span>
                 </div>
                 <textarea 
@@ -634,10 +636,10 @@ export const ContactPage = () => {
                   value={formData.message}
                   onChange={handleMessageChange}
                   onBlur={() => {
-                    if (!formData.message.trim()) setErrors(prev => ({...prev, message: 'Le message est requis'}));
+                    if (!formData.message.trim()) setErrors(prev => ({...prev, message: t('Le message est requis')}));
                   }}
                   className={`w-full bg-[#FAFAFA] border-[1.5px] ${errors.message ? 'border-red-500' : 'border-[#E2E8F0]'} rounded-[16px] px-5 py-4 focus:outline-none focus:border-[#8FB1D0] transition-colors text-base resize-none`} 
-                  placeholder="Détails de votre requête..."
+                  placeholder={t("Détails de votre requête...")}
                 ></textarea>
                 {errors.message && <span className="text-red-500 text-sm mt-1">{errors.message}</span>}
               </div>
@@ -645,12 +647,81 @@ export const ContactPage = () => {
                 type="submit" 
                 className={`w-full py-4 text-white font-bold rounded-[16px] text-lg transition-all ${submitted ? 'bg-green-600' : 'bg-[#0A1629] hover:bg-[#031F41] shadow-[0_4px_15px_rgba(10,22,41,0.2)]'}`}
               >
-                {submitted ? 'Message Envoyé !' : 'Envoyer le message'}
+                {submitted ? t('Message Envoyé !') : t('Envoyer le message')}
               </button>
             </form>
           </div>
         </div>
       </div>
+
+      {/* Partner Logos */}
+      <motion.div 
+        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
+        className="mt-16 border-t border-[#E2E8F0] pt-12"
+      >
+        <p className="text-center font-headline-sm text-headline-sm text-[#0A1629] mb-12">{t('Nos Partenaires')}</p>
+        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-70 hover:opacity-100 transition-all duration-500">
+           {/* World Bank */}
+           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
+             <svg className="w-10 h-10 text-[#002244]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <rect width="40" height="40" fill="currentColor"/>
+               <circle cx="20" cy="20" r="12" fill="white"/>
+               <path d="M8 20 Q20 8 32 20 Q20 32 8 20" stroke="currentColor" strokeWidth="2"/>
+               <path d="M20 8 Q32 20 20 32 Q8 20 20 8" stroke="currentColor" strokeWidth="2"/>
+             </svg>
+             <div className="flex flex-col text-left">
+               <span className="text-[#002244] font-serif font-bold text-[22px] leading-none">THE WORLD BANK</span>
+               <span className="text-[#002244] text-[8px] tracking-[0.2em] mt-1 font-semibold">IBRD • IDA | WORLD BANK GROUP</span>
+             </div>
+           </div>
+
+           {/* IsDB */}
+           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
+             <svg className="w-12 h-12 text-[#00605A]" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+               <path d="M24 4L4 40h40L24 4zm0 10l12 22H12L24 14z" />
+             </svg>
+             <div className="flex flex-col text-left">
+               <span className="text-[#00605A] font-bold text-[26px] leading-none tracking-tight">IsDB</span>
+               <span className="text-[#00605A] text-[9px] tracking-[0.1em] mt-1 font-semibold">Islamic Development Bank</span>
+             </div>
+           </div>
+
+           {/* AfDB */}
+           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
+             <div className="flex flex-col w-6 gap-[2px]">
+               <div className="h-1.5 w-full bg-[#E51A2E]"></div>
+               <div className="h-1.5 w-full bg-[#00923F]"></div>
+               <div className="h-1.5 w-full bg-[#00519E]"></div>
+             </div>
+             <div className="flex flex-col border-l-[1.5px] border-slate-300 pl-3 text-left">
+               <span className="text-[#00519E] font-bold text-[16px] leading-[1.1] font-serif">AFRICAN<br/>DEVELOPMENT<br/>BANK GROUP</span>
+             </div>
+           </div>
+
+           {/* BADEA */}
+           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
+             <div className="w-10 h-10 bg-[#007A3E] rounded-full flex items-center justify-center text-white">
+               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+                 <path d="M12 6v12M6 12h12" opacity="0.5"/>
+               </svg>
+             </div>
+             <span className="text-[#007A3E] font-bold text-[28px] font-serif tracking-wider">BADEA</span>
+           </div>
+
+           {/* CBLT */}
+           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
+             <div className="w-10 h-10 rounded-full border-4 border-[#00923F] flex items-center justify-center overflow-hidden">
+               <div className="w-full h-1/2 bg-[#00519E] transform translate-y-1/2"></div>
+               <div className="w-full h-1/2 bg-[#E51A2E] transform -translate-y-1/2 opacity-20"></div>
+             </div>
+             <div className="flex flex-col text-left">
+               <span className="text-[#00519E] font-bold text-[24px] leading-none">CBLT</span>
+               <span className="text-[#00923F] text-[9px] tracking-[0.15em] mt-1 font-bold">COMMISSION DU BASSIN<br/>DU LAC TCHAD</span>
+             </div>
+           </div>
+        </div>
+      </motion.div>
     </div>
   );
 };

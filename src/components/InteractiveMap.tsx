@@ -2,6 +2,8 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Map, { Marker } from 'react-map-gl/maplibre';
 import { motion, AnimatePresence } from 'motion/react';
 import { Droplet, Leaf, HardHat, Tractor, Lightbulb, X as CloseIcon } from 'lucide-react';
+import baseMapStyle from '../lib/map-style.json';
+import { useTranslation } from 'react-i18next';
 
 // --- DATA: EXTRACTED FROM KRB REFERENCE DOCS ---
 const KRB_PROJECTS = [
@@ -43,10 +45,26 @@ const getCategoryColor = (category: string) => {
   }
 };
 
+const customMapStyle = { ...(baseMapStyle as any) };
+customMapStyle.layers = customMapStyle.layers.map((layer: any) => {
+    if (layer.id === 'background' || layer.id === 'landcover' || layer.id.startsWith('landuse') || layer.id.startsWith('park')) {
+        const colorKey = layer.type === 'background' ? 'background-color' : 'fill-color';
+        return { ...layer, paint: { ...layer.paint, [colorKey]: "#1e3a8a" } }; // Dark blue continent
+    }
+    if (layer.id === 'water' || layer.id === 'waterway' || layer.id === 'water_name') {
+        const colorKey = layer.type === 'line' ? 'line-color' : 'fill-color';
+        return { ...layer, paint: { ...layer.paint, [colorKey]: "#ffffff" } }; // White oceans
+    }
+    if (layer.id.startsWith('boundary')) {
+        return { ...layer, paint: { ...layer.paint, "line-color": "#ffffff", "line-opacity": 0.2 } }; // White borders
+    }
+    return layer;
+});
+
 export default function InteractiveMap({ wrapperClass = "relative w-full h-[600px] bg-white overflow-hidden font-sans text-slate-800 rounded-2xl shadow-xl border border-outline-variant" }: { wrapperClass?: string }) {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("Tous");
   const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [mapStyle, setMapStyle] = useState<any>(null);
   const [kbExpanded, setKbExpanded] = useState(false);
   const mapRef = useRef<any>(null);
 
@@ -59,31 +77,6 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
     return () => {
         document.head.removeChild(link);
     };
-  }, []);
-
-  useEffect(() => {
-    fetch('https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json')
-      .then(r => r.json())
-      .then(style => {
-        const newStyle = { ...style };
-        
-        // Let's override background(land) to blue, and water to white
-        newStyle.layers = newStyle.layers.map((layer: any) => {
-            if (layer.id === 'background' || layer.id === 'landcover' || layer.id.startsWith('landuse') || layer.id.startsWith('park')) {
-                const colorKey = layer.type === 'background' ? 'background-color' : 'fill-color';
-                return { ...layer, paint: { ...layer.paint, [colorKey]: "#1e3a8a" } }; // Dark blue continent
-            }
-            if (layer.id === 'water' || layer.id === 'waterway' || layer.id === 'water_name') {
-                const colorKey = layer.type === 'line' ? 'line-color' : 'fill-color';
-                return { ...layer, paint: { ...layer.paint, [colorKey]: "#ffffff" } }; // White oceans
-            }
-            if (layer.id.startsWith('boundary')) {
-                return { ...layer, paint: { ...layer.paint, "line-color": "#ffffff", "line-opacity": 0.2 } }; // White borders
-            }
-            return layer;
-        });
-        setMapStyle(newStyle);
-      });
   }, []);
 
   const filteredProjects = useMemo(() => {
@@ -115,7 +108,6 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
     <div className={wrapperClass}>
       
       {/* MAP ENGINE: MapLibre via react-map-gl. Custom dynamically loaded style */}
-      {mapStyle ? (
       <Map
         ref={mapRef}
         initialViewState={{
@@ -125,7 +117,7 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
           ],
           fitBoundsOptions: { padding: 40 }
         }}
-        mapStyle={mapStyle}
+        mapStyle={customMapStyle as any}
         style={{ width: '100%', height: '100%' }}
         onClick={() => {
           if (selectedProject) {
@@ -158,7 +150,7 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                 exit={{ opacity: 0, scale: 0 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="relative group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary rounded-full"
-                aria-label={`Projet: ${project.title} à ${project.location}`}
+                aria-label={t(`Projet: ${project.title} à ${project.location}`)}
               >
                 {/* Subtle Pulse Animation layer underneath */}
                 <div className={`absolute -inset-2 rounded-full transition-all duration-300 ${getCategoryColor(project.category).split(' ')[1]} ${
@@ -182,11 +174,6 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
           ))}
         </AnimatePresence>
       </Map>
-      ) : (
-        <div className="w-full h-full flex items-center justify-center bg-white">
-          <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-blue-900 animate-spin"></div>
-        </div>
-      )}
 
       {/* Map Reset Button */}
       {selectedProject && (
@@ -202,10 +189,10 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
             ], { padding: 40, duration: 1500 });
           }}
           className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-md border border-outline-variant text-primary hover:text-secondary hover:bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-primary flex items-center gap-2"
-          aria-label="Réinitialiser la vue globale de la carte"
+          aria-label={t("Réinitialiser la vue globale de la carte")}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-          <span className="font-label-sm text-sm font-bold hidden md:inline">Vue Globale</span>
+          <span className="font-label-sm text-sm font-bold hidden md:inline">{t('Vue Globale')}</span>
         </motion.button>
       )}
 
@@ -241,7 +228,7 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                 <div className="relative z-10">
                   <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold mb-4 border ${getCategoryColor(selectedProject.category)}`}>
                     <CategoryIcon category={selectedProject.category} />
-                    {selectedProject.category.toUpperCase()}
+                    {t(selectedProject.category).toUpperCase()}
                   </div>
                   
                   <h2 className="text-2xl font-bold text-on-surface leading-tight mb-2">{selectedProject.title}</h2>
@@ -253,19 +240,19 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
 
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-xs uppercase tracking-widest text-primary/70 font-bold mb-2">Description du Projet</h3>
+                      <h3 className="text-xs uppercase tracking-widest text-primary/70 font-bold mb-2">{t('Description du Projet')}</h3>
                       <p className="text-sm text-on-surface-variant leading-relaxed">
-                        {selectedProject.description}
+                        {t(selectedProject.description)}
                       </p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-surface rounded-xl p-4 border border-outline-variant/30">
-                        <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/70 font-bold mb-1">Financement</p>
-                        <p className="text-sm font-mono text-on-surface font-semibold">{selectedProject.value}</p>
+                        <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/70 font-bold mb-1">{t('Financement')}</p>
+                        <p className="text-sm font-mono text-on-surface font-semibold">{t(selectedProject.value)}</p>
                       </div>
                       <div className="bg-surface rounded-xl p-4 border border-outline-variant/30">
-                        <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/70 font-bold mb-1">Coordonnées</p>
+                        <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/70 font-bold mb-1">{t('Coordonnées')}</p>
                         <p className="text-xs font-mono text-on-surface-variant">{selectedProject.lat.toFixed(3)}°N</p>
                         <p className="text-xs font-mono text-on-surface-variant">{selectedProject.lng.toFixed(3)}°E</p>
                       </div>
@@ -281,7 +268,7 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                         >
                           <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-primary text-sm">lightbulb</span>
-                            <span className="font-label-md text-sm font-bold text-primary">Base de Connaissances IA</span>
+                            <span className="font-label-md text-sm font-bold text-primary">{t('Base de Connaissances IA')}</span>
                           </div>
                           <span className={`material-symbols-outlined text-primary transition-transform duration-300 ${kbExpanded ? 'rotate-180' : ''}`}>
                             expand_more
@@ -297,15 +284,15 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                             >
                               <div className="p-4 space-y-4">
                                 <div>
-                                  <h4 className="font-label-sm text-xs uppercase tracking-widest text-secondary font-bold mb-1">Leçons Apprises</h4>
+                                  <h4 className="font-label-sm text-xs uppercase tracking-widest text-secondary font-bold mb-1">{t('Leçons Apprises')}</h4>
                                   <p className="text-sm text-on-surface-variant">
-                                    {selectedProject.lecons}
+                                    {t(selectedProject.lecons)}
                                   </p>
                                 </div>
                                 <div>
-                                  <h4 className="font-label-sm text-xs uppercase tracking-widest text-secondary font-bold mb-1">Recommandations Futures</h4>
+                                  <h4 className="font-label-sm text-xs uppercase tracking-widest text-secondary font-bold mb-1">{t('Recommandations Futures')}</h4>
                                   <p className="text-sm text-on-surface-variant">
-                                    {selectedProject.recommandations}
+                                    {t(selectedProject.recommandations)}
                                   </p>
                                 </div>
                               </div>
@@ -364,11 +351,11 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                   <CloseIcon className="w-5 h-5" />
                 </button>
                 <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-bold mb-2 border ${getCategoryColor(selectedProject.category)}`}>
-                  {selectedProject.category.toUpperCase()}
+                  {t(selectedProject.category).toUpperCase()}
                 </div>
                 <h2 className="text-xl font-bold text-on-surface mb-1">{selectedProject.title}</h2>
                 <p className="text-sm text-on-surface-variant mb-3">{selectedProject.location}</p>
-                <p className="text-xs text-on-surface-variant line-clamp-2 mb-4">{selectedProject.description}</p>
+                <p className="text-xs text-on-surface-variant line-clamp-2 mb-4">{t(selectedProject.description)}</p>
                 
                 {/* Mobile KB Section */}
                 {selectedProject.lecons && (
@@ -380,7 +367,7 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                     >
                       <div className="flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary text-sm">lightbulb</span>
-                        <span className="font-label-sm text-xs font-bold text-primary">Connaissances IA</span>
+                        <span className="font-label-sm text-xs font-bold text-primary">{t('Connaissances IA')}</span>
                       </div>
                       <span className={`material-symbols-outlined text-primary text-sm transition-transform duration-300 ${kbExpanded ? 'rotate-180' : ''}`}>
                         expand_more
@@ -396,15 +383,15 @@ export default function InteractiveMap({ wrapperClass = "relative w-full h-[600p
                         >
                           <div className="p-3 space-y-3">
                             <div>
-                              <h4 className="font-label-sm text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">Leçons Apprises</h4>
+                              <h4 className="font-label-sm text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">{t('Leçons Apprises')}</h4>
                               <p className="text-xs text-on-surface-variant line-clamp-2">
-                                {selectedProject.lecons}
+                                {t(selectedProject.lecons)}
                               </p>
                             </div>
                             <div>
-                              <h4 className="font-label-sm text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">Recommandations</h4>
+                              <h4 className="font-label-sm text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">{t('Recommandations')}</h4>
                               <p className="text-xs text-on-surface-variant line-clamp-2">
-                                {selectedProject.recommandations}
+                                {t(selectedProject.recommandations)}
                               </p>
                             </div>
                           </div>

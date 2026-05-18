@@ -4,14 +4,17 @@ import { motion } from 'motion/react';
 import Projects from '../components/Projects';
 import InteractiveMap from '../components/InteractiveMap';
 import { cleanImages, getImages } from '../lib/images';
+import imageBg from '../assets/images/regenerated_image_1779059114634.jpg';
+import { useTranslation } from 'react-i18next';
 
 export default function References() {
-  const bgImg = cleanImages[2] || getImages(10)[9];
+  const { t } = useTranslation();
+  const bgImg = imageBg;
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header Section */}
       <header className="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center bg-surface-container-low overflow-hidden">
-        <img 
+        <img loading="lazy" 
           alt="Engineering Background" 
           className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" 
           src={bgImg}
@@ -21,15 +24,15 @@ export default function References() {
           initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}
           className="relative z-10 text-center max-w-4xl mx-auto px-4"
         >
-          <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4 block">Études de Cas</span>
-          <h1 className="font-display-lg text-display-lg text-primary mb-6">Projets & Références</h1>
+          <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4 block">{t('Études de Cas')}</span>
+          <h1 className="font-display-lg text-display-lg text-primary mb-6">{t('Projets & Références')}</h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-            Découvrez notre empreinte technique à travers l'Afrique de l'Ouest. Une sélection de projets d'ingénierie majeurs soutenus par des institutions financières internationales.
+            {t("Découvrez notre empreinte technique à travers l'Afrique de l'Ouest. Une sélection de projets d'ingénierie majeurs soutenus par des institutions financières internationales.")}
           </p>
         </motion.div>
       </header>
 
-      <main className="max-w-container-max mx-auto px-gutter py-section-padding flex-grow">
+      <main className="max-w-container-max mx-auto px-4 md:px-8 py-section-padding flex-grow">
         {/* Regional Footprint Map */}
         <section className="mb-section-padding">
           <div className="flex flex-col md:flex-row gap-gutter">
@@ -37,26 +40,26 @@ export default function References() {
               initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}
               className="md:w-1/3 flex flex-col justify-center"
             >
-              <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Présence Régionale</h2>
+              <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">{t('Présence Régionale')}</h2>
               <p className="font-body-md text-body-md text-on-surface-variant mb-8">
-                Notre expertise s'étend à travers plusieurs pays clés d'Afrique de l'Ouest, apportant des solutions d'ingénierie durables et adaptées aux contextes locaux.
+                {t("Notre expertise s'étend à travers plusieurs pays clés d'Afrique de l'Ouest, apportant des solutions d'ingénierie durables et adaptées aux contextes locaux.")}
               </p>
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <MapPin className="text-tertiary-container w-6 h-6" />
-                  <span className="font-label-lg text-label-lg text-on-surface">Niger (Siège - Niamey)</span>
+                  <span className="font-label-lg text-label-lg text-on-surface">{t('Niger (Siège - Niamey)')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="text-tertiary-container w-6 h-6" />
-                  <span className="font-label-lg text-label-lg text-on-surface">Burkina Faso (Représentation)</span>
+                  <span className="font-label-lg text-label-lg text-on-surface">{t('Burkina Faso (Représentation)')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="text-tertiary-container w-6 h-6" />
-                  <span className="font-label-lg text-label-lg text-on-surface">Mali</span>
+                  <span className="font-label-lg text-label-lg text-on-surface">{t('Mali')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="text-tertiary-container w-6 h-6" />
-                  <span className="font-label-lg text-label-lg text-on-surface">Sénégal & Côte d'Ivoire</span>
+                  <span className="font-label-lg text-label-lg text-on-surface">{t("Sénégal & Côte d'Ivoire")}</span>
                 </div>
               </div>
             </motion.div>
