@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function About() {
   const { t } = useTranslation();
-  const bgImg = cleanImages[7] || getImages(5, true)[4];
+  const bgImg = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/DSC07399.JPG";
   return (
     <div className="w-full flex-grow">
       {/* Hero Section with Banner */}
