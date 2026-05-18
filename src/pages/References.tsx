@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import Projects from '../components/Projects';
 import InteractiveMap from '../components/InteractiveMap';
 import { cleanImages, getImages } from '../lib/images';
-import imageBg from '../assets/images/regenerated_image_1779059114634.jpg';
+import imageBg from '../assets/images/regenerated_image_1779103464773.jpg';
 import { useTranslation } from 'react-i18next';
 
 export default function References() {

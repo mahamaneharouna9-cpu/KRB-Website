@@ -5,10 +5,10 @@ import { categoryImages } from '../lib/images';
 import { useTranslation } from 'react-i18next';
 
 import imageHero from '../assets/images/regenerated_image_1779057160162.jpg';
-import imageEau from '../assets/images/regenerated_image_1779059046040.jpg';
-import imageEnv from '../assets/images/regenerated_image_1779059068173.JPG';
-import imageRural from '../assets/images/regenerated_image_1779059074884.jpg';
-import imageSocial from '../assets/images/regenerated_image_1779059080358.JPG';
+import imageEau from '../assets/images/regenerated_image_1779060586342.JPG';
+import imageEnv from '../assets/images/regenerated_image_1779060598895.JPG';
+import imageRural from '../assets/images/regenerated_image_1779060600115.JPG';
+import imageSocial from '../assets/images/regenerated_image_1779060604404.JPG';
 
 export default function Services() {
   const { t } = useTranslation();
