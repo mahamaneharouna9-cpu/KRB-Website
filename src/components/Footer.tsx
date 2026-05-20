@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="md:col-span-1">
           <span className="text-lg font-bold text-primary mb-4 block">KRB CONSEILS</span>
           <p className="font-body-md text-sm text-on-surface-variant">
-            {t('© 2024 KRB Ingénieurs Conseils. Expertise en ingénierie et conseil technique.')}
+            {t('© 1996 KRB Ingénieurs Conseils. Expertise en ingénierie et conseil technique.')}
           </p>
         </div>
         <div>

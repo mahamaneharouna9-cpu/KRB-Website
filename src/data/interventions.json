@@ -1,0 +1,21 @@
+[
+  { "nom": "PRRIA", "description": "Renforcement de la Résilience afin de lutter contre l'Insécurité Alimentaire", "client": "Haut Commissariat 3N", "financement": "BID", "lieu": "Diffa, Tahoua, Tillabéry", "date": "2018-2023" },
+  { "nom": "PRESIBALT", "description": "Réhabilitation et Renforcement de la Résilience des Systèmes Socio-Ecologiques du Bassin du lac Tchad", "client": "CBLT", "financement": "FAD", "lieu": "Zinder, Diffa", "date": "2018-2020" },
+  { "nom": "PGDR-DU", "description": "Mini AEP et puits cimentés dans la Région de Diffa", "client": "Projet de Gestion des Risques de Catastrophes", "financement": "IDA", "lieu": "Diffa", "date": "2016-2017" },
+  { "nom": "Hydraulique Villageoise UEMOA (Phase II)", "description": "AEP Solaires au Bénin, Burkina Faso et au Niger", "client": "UEMOA", "financement": "UEMOA", "lieu": "Bénin, Burkina, Niger", "date": "2012" },
+  { "nom": "Harmonisation UEMOA", "description": "Étude d'harmonisation des interventions (Phase II)", "client": "UEMOA", "financement": "UEMOA", "lieu": "8 pays africains", "date": "2011-2012" },
+  { "nom": "Liptako Gourma (Volet Niger)", "description": "Développement de l'élevage, hydraulique pastorale", "client": "Ministère des Ressources Animales", "financement": "BID", "lieu": "Liptako Gourma", "date": "2011-2012" },
+  { "nom": "Plateau Dogon (Mali)", "description": "Projet d'Hydraulique Villageoise Phase II", "client": "Ministère de l'Energie et de l'Eau (Mali)", "financement": "BOAD", "lieu": "Mali", "date": "2008-2014" },
+  { "nom": "Projet Maradi-Tahoua", "description": "125 forages équipés de pompes à motricité humaine", "client": "NIGETIP", "financement": "UEMOA", "lieu": "Maradi, Tahoua", "date": "2008-2009" },
+  { "nom": "UNICEF Zinder", "description": "20 forages et infrastructures d'hygiène", "client": "UNICEF", "financement": "UNICEF", "lieu": "Zinder", "date": "2007" },
+  { "nom": "UNICEF Maradi", "description": "6 mini AEP et 21 nouveaux forages", "client": "UNICEF", "financement": "UNICEF", "lieu": "Maradi", "date": "2007-2008" },
+  { "nom": "CSIs Tahoua et Tillabéry", "description": "Alimentation en eau potable de 14 CSI", "client": "Ministère de la Santé (Santé FAD II)", "financement": "BAD", "lieu": "Tahoua, Tillabéry", "date": "2005-2008" },
+  { "nom": "Projet ASAPI", "description": "Hydraulique et assainissement (puits et latrines)", "client": "Projet ASAPI / FED", "financement": "FED", "lieu": "Tahoua, Zinder", "date": "2004" },
+  { "nom": "CEAO Phase II", "description": "Hydraulique villageoise et pastorale", "client": "MHELCD", "financement": "BOAD", "lieu": "Maradi, Tahoua", "date": "2003-2006" },
+  { "nom": "Projet ASAPI", "description": "Seuils d'épandage et aménagement des mares", "client": "Projet ASAPI", "financement": "FED", "lieu": "Tahoua", "date": "2004-2005" },
+  { "nom": "Réhabilitation Dakoro", "description": "Projet de réhabilitation régionale multisectorielle", "client": "Ministère du Développement Rural", "financement": "BADEA", "lieu": "Dakoro", "date": "2001-2003" },
+  { "nom": "NIGETIP", "description": "Hangars, abattoirs, forages dans 6 départements", "client": "NIGETIP", "financement": "BAD", "lieu": "Tahoua, Maradi", "date": "2002-2003" },
+  { "nom": "Délégation Maradi-Tahoua", "description": "Développement des Ressources en Eau", "client": "MHELCD", "financement": "Fonds de l'OPEP", "lieu": "Tahoua, Maradi", "date": "2002-2005" },
+  { "nom": "Hydraulique Dosso", "description": "Forages, puits et mini-AEPS dans 13 villages", "client": "Plan International Niger", "financement": "Plan International", "lieu": "Dosso", "date": "2001-2002" },
+  { "nom": "Micro-réalisations BAD", "description": "Aménagement hydraulique de 5 mares et 12 koris", "client": "Projet Micro-Réalisations / Ministère du Plan", "financement": "BAD", "lieu": "Tahoua", "date": "2001-2003" }
+]

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Droplets, Leaf, Map as MapIcon, Users, Pickaxe, Building2, Phone, Mail, MapPin, CheckCircle2, X } from 'lucide-react';
+import { Droplets, Leaf, Map as MapIcon, Users, Pickaxe, Building2, Phone, Mail, MapPin, CheckCircle2, X, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export const ServicesPage = () => (
@@ -568,7 +568,17 @@ export const ContactPage = () => {
                 </div>
                 <div>
                   <strong className="block text-[#0A1629] text-lg mb-1">{t('Siège Niger')}</strong>
-                  <span className="text-[#4A5568] leading-relaxed block">68 Rue du Sahel "Quartier Terminus"<br/>B.P. 10 265 Niamey, Niger</span>
+                  <span className="text-[#4A5568] leading-relaxed block">68 Rue du Sahel "Quartier Terminus"<br/>B.P. 10 265 Niamey, Niger<br/>krb@intnet.ne</span>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-5">
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
+                  <MapPin className="text-[#031F41]" size={20} />
+                </div>
+                <div>
+                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Représentation Burkina Faso')}</strong>
+                  <span className="text-[#4A5568] leading-relaxed block">SN-ERFAC s.a.r.l.<br/>OUAGA 2000-11B.P. 530 Ouagadougou<br/>Tél: +226 50397371<br/>erfac@consultant.com</span>
                 </div>
               </div>
               
@@ -577,18 +587,19 @@ export const ContactPage = () => {
                   <Phone className="text-[#031F41]" size={20} />
                 </div>
                 <div>
-                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Téléphone & Fax')}</strong>
-                  <span className="text-[#4A5568] leading-relaxed block">{t('Tél')} : 20 73 47 53<br/>{t('Fax')} : 20 73 53 83</span>
+                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Téléphone & Fax (Siège)')}</strong>
+                  <span className="text-[#4A5568] leading-relaxed block">{t('Tél')} : (227) 20 73 47 53<br/>{t('Fax')} : (227) 20 73 53 83</span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-5 mt-4 pt-4 border-t border-[#D0D7E2]">
                 <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
-                  <Mail className="text-[#031F41]" size={20} />
+                  <Users className="text-[#031F41]" size={20} />
                 </div>
                 <div>
-                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Email')}</strong>
-                  <span className="text-[#4A5568] leading-relaxed block">krb@intnet.ne<br/>krb@krbconseils.com</span>
+                  <strong className="block text-[#0A1629] text-lg mb-1">{t('Direction')}</strong>
+                  <span className="text-[#4A5568] leading-relaxed block font-semibold">MAHAMAN INTCHI Amadou Roufaï</span>
+                  <span className="text-[#4A5568] text-sm leading-relaxed block">Directeur Général<br/>Ingénieur Hydrogéologue/Géophysicien</span>
                 </div>
               </div>
             </div>
@@ -662,63 +673,53 @@ export const ContactPage = () => {
         <p className="text-center font-headline-sm text-headline-sm text-[#0A1629] mb-12">{t('Nos Partenaires')}</p>
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-70 hover:opacity-100 transition-all duration-500">
            {/* World Bank */}
-           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
-             <svg className="w-10 h-10 text-[#002244]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <rect width="40" height="40" fill="currentColor"/>
-               <circle cx="20" cy="20" r="12" fill="white"/>
-               <path d="M8 20 Q20 8 32 20 Q20 32 8 20" stroke="currentColor" strokeWidth="2"/>
-               <path d="M20 8 Q32 20 20 32 Q8 20 20 8" stroke="currentColor" strokeWidth="2"/>
-             </svg>
-             <div className="flex flex-col text-left">
-               <span className="text-[#002244] font-serif font-bold text-[22px] leading-none">THE WORLD BANK</span>
-               <span className="text-[#002244] text-[8px] tracking-[0.2em] mt-1 font-semibold">IBRD • IDA | WORLD BANK GROUP</span>
-             </div>
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/The%20world%20bank%20group.png" alt="World Bank" className="h-10 md:h-14 w-auto object-contain" />
            </div>
 
            {/* IsDB */}
-           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
-             <svg className="w-12 h-12 text-[#00605A]" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-               <path d="M24 4L4 40h40L24 4zm0 10l12 22H12L24 14z" />
-             </svg>
-             <div className="flex flex-col text-left">
-               <span className="text-[#00605A] font-bold text-[26px] leading-none tracking-tight">IsDB</span>
-               <span className="text-[#00605A] text-[9px] tracking-[0.1em] mt-1 font-semibold">Islamic Development Bank</span>
-             </div>
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/IsDB%20Islamic%20development%20bank.jpg" alt="IsDB" className="h-14 w-auto object-contain mix-blend-multiply" />
            </div>
 
            {/* AfDB */}
-           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
-             <div className="flex flex-col w-6 gap-[2px]">
-               <div className="h-1.5 w-full bg-[#E51A2E]"></div>
-               <div className="h-1.5 w-full bg-[#00923F]"></div>
-               <div className="h-1.5 w-full bg-[#00519E]"></div>
-             </div>
-             <div className="flex flex-col border-l-[1.5px] border-slate-300 pl-3 text-left">
-               <span className="text-[#00519E] font-bold text-[16px] leading-[1.1] font-serif">AFRICAN<br/>DEVELOPMENT<br/>BANK GROUP</span>
-             </div>
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/African%20development%20bank.jpeg" alt="AfDB" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
            </div>
 
            {/* BADEA */}
-           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
-             <div className="w-10 h-10 bg-[#007A3E] rounded-full flex items-center justify-center text-white">
-               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
-                 <path d="M12 6v12M6 12h12" opacity="0.5"/>
-               </svg>
-             </div>
-             <span className="text-[#007A3E] font-bold text-[28px] font-serif tracking-wider">BADEA</span>
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/BADEA.jpg" alt="BADEA" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply bg-white rounded" />
            </div>
 
            {/* CBLT */}
-           <div className="flex items-center justify-center gap-3 group grayscale hover:grayscale-0 transition-all duration-300">
-             <div className="w-10 h-10 rounded-full border-4 border-[#00923F] flex items-center justify-center overflow-hidden">
-               <div className="w-full h-1/2 bg-[#00519E] transform translate-y-1/2"></div>
-               <div className="w-full h-1/2 bg-[#E51A2E] transform -translate-y-1/2 opacity-20"></div>
-             </div>
-             <div className="flex flex-col text-left">
-               <span className="text-[#00519E] font-bold text-[24px] leading-none">CBLT</span>
-               <span className="text-[#00923F] text-[9px] tracking-[0.15em] mt-1 font-bold">COMMISSION DU BASSIN<br/>DU LAC TCHAD</span>
-             </div>
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/lake%20tchad.png" alt="CBLT" className="h-14 w-auto object-contain" />
+           </div>
+
+           {/* UNICEF */}
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/Unicef.jpg" alt="UNICEF" className="h-10 md:h-12 w-auto object-contain mix-blend-multiply" />
+           </div>
+
+           {/* UEMOA */}
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/UEMOA.png" alt="UEMOA" className="h-10 md:h-14 w-auto object-contain" />
+           </div>
+
+           {/* NIGETIP */}
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/NIGETIP.jpg" alt="NIGETIP" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
+           </div>
+
+           {/* PGRCDU */}
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/PGRCDU.jpg" alt="PGRCDU" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
+           </div>
+
+           {/* PRRIA */}
+           <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/PRRIA.jpg" alt="PRRIA" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
            </div>
         </div>
       </motion.div>

@@ -116,7 +116,7 @@ export default function About() {
             <p className="font-body-md text-body-md text-on-surface-variant mb-stack-md">
               {t("Pour mener à bien les mandats qui lui sont confiés, KRB Ingénieurs Conseils compte sur un personnel professionnel hautement qualifié et pluridisciplinaire.")}
             </p>
-            <ul className="space-y-4">
+            <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-secondary mt-1">check_circle</span>
                 <span className="font-body-md text-body-md text-on-surface">{t("Spécialistes en Environnement et Agronomie.")}</span>
@@ -134,6 +134,27 @@ export default function About() {
                 <span className="font-body-md text-body-md text-on-surface">{t("Spécialistes en Sociologie, Suivi-évaluation et Foncier Rural.")}</span>
               </li>
             </ul>
+
+            <h3 className="font-headline-md text-headline-md text-primary mt-8 mb-4">{t("Notre Équipe Clé")}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { name: "MAHAMAN INTCHI Amadou Roufaï", role: "Président Directeur Général (CEO)" },
+                { name: "YAYA Madougou", role: "Ingénieur Agroéconomiste, Chef de mission" },
+                { name: "Moustapha Gambo MATO", role: "Ingénieur Génie Rural, Chef d'équipe" },
+                { name: "Amadou SALAOU", role: "Ingénieur Génie Rural, Chef de projet" },
+                { name: "MAMADOU Mansour", role: "Ingénieur Génie Rural, Chef de mission" },
+                { name: "Abdoukarim ATAHIROU", role: "Expert Senior, Chef de mission" },
+                { name: "SANI ADO KATO", role: "Environnementaliste" },
+                { name: "MOUTARI KABIROU", role: "Sociologue" },
+                { name: "KALIPE Noel Kouamé", role: "Ingénieur Génie Civil" },
+                { name: "Garba ABOUBACAR", role: "Sociologue" }
+              ].map((member, i) => (
+                <div key={i} className="bg-surface-container-low p-3 rounded border border-outline-variant flex flex-col justify-center">
+                  <span className="font-bold text-sm text-on-surface block">{member.name}</span>
+                  <span className="text-xs text-on-surface-variant block">{member.role}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
           {/* High density data table representation */}
           <motion.div 

@@ -8,7 +8,7 @@ export default function Services() {
   const { t } = useTranslation();
   const heroImage = "https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/IMG_20190707_111413_2.jpg";
   const eauImage = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20de%20l'Eau%20&%20Hydraulique/Ing%C3%A9nierie%20de%20l'Eau%20&%20Hydraulique/DSC02078.JPG";
-  const envImage = "https://storage.googleapis.com/krbengineering/Ma%C3%AEtrise%20Environnementale/Ma%C3%AEtrise%20Environnementale/BILD5537.JPG";
+  const envImage = "https://storage.googleapis.com/krbengineering/New/Maitrise%20environnementale/Maitrise%20environnementale/6.jpg";
   const ruralImage = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/aire%20Doungouro%20(2).JPG";
   const socialImage = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20Sociale/Ing%C3%A9nierie%20Sociale/IMG_20180909_134200.jpg";
   const energieImage = categoryImages.energie[0] || categoryImages.energie[1];

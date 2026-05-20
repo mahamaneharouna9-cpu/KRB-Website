@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useLocation } from 'react-router-dom';
 import { categoryImages } from '../lib/images';
 import { useTranslation } from 'react-i18next';
+import interventionsData from '../data/interventions.json';
 
 const categories = [
   "Tous",
@@ -46,6 +47,13 @@ Object.entries(categoryMap).forEach(([catName, urls]) => {
 // Since the array order is purely by category right now, let's shuffle it deterministically 
 // so "Tous" looks like a nice mix
 const projectsData = [...allProjectImages].sort((a, b) => {
+  const aIsNew = a.image.includes('/New/') ? -1 : 1;
+  const bIsNew = b.image.includes('/New/') ? -1 : 1;
+  
+  if (aIsNew !== bIsNew) {
+    return aIsNew - bIsNew;
+  }
+  
   // simple deterministic pseudo-random hash off the id
   return ((a.id * 7) % 10) - ((b.id * 7) % 10);
 });
@@ -75,7 +83,7 @@ export default function Projets() {
         
         {/* Header */}
         <div className="mb-16">
-          <h1 className="font-display-lg text-5xl md:text-6xl text-primary font-bold mb-6">{t('Nos Projets')}</h1>
+          <h1 className="font-display-lg text-5xl md:text-6xl text-primary font-bold mb-6">{t('Liste des Interventions')}</h1>
           <p className="font-body-lg text-xl text-on-surface-variant max-w-2xl">
             {t('Découvrez nos interventions à travers la région, illustrant notre expertise technique et notre engagement envers le développement durable.')}
           </p>
@@ -157,6 +165,39 @@ export default function Projets() {
             <p className="text-on-surface-variant text-lg">{t('Aucun projet trouvé dans cette catégorie.')}</p>
           </div>
         )}
+
+        {/* Detailed Interventions Table */}
+        <div className="mt-32">
+          <h2 className="font-display-md text-4xl text-primary font-bold mb-8">{t('Liste Détaillée des Interventions')}</h2>
+          <div className="bg-white rounded-lg border border-outline-variant overflow-hidden shadow-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left font-body-sm whitespace-nowrap">
+                <thead className="bg-surface-container-low border-b border-outline-variant">
+                  <tr>
+                    <th className="px-6 py-4 font-bold text-primary">{t('Période')}</th>
+                    <th className="px-6 py-4 font-bold text-primary">{t('Projet')}</th>
+                    <th className="px-6 py-4 font-bold text-primary">{t('Description')}</th>
+                    <th className="px-6 py-4 font-bold text-primary">{t('Lieu')}</th>
+                    <th className="px-6 py-4 font-bold text-primary">{t('Client')}</th>
+                    <th className="px-6 py-4 font-bold text-primary">{t('Financement')}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-outline-variant">
+                  {interventionsData.map((item, idx) => (
+                    <tr key={idx} className="hover:bg-surface-container-lowest transition-colors">
+                      <td className="px-6 py-4 text-on-surface-variant font-medium">{item.date}</td>
+                      <td className="px-6 py-4 text-primary font-semibold">{item.nom}</td>
+                      <td className="px-6 py-4 text-on-surface max-w-xs truncate" title={item.description}>{item.description}</td>
+                      <td className="px-6 py-4 text-on-surface-variant">{item.lieu}</td>
+                      <td className="px-6 py-4 text-on-surface">{item.client}</td>
+                      <td className="px-6 py-4 text-on-surface-variant">{item.financement}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

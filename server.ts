@@ -6,7 +6,7 @@ import fs from "fs";
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+const PORT = 3000;
 
 const knowledgePath = path.join(process.cwd(), "knowledge.md");
 let knowledgeBase = "";
@@ -103,7 +103,10 @@ CRITICAL: If a query indicates a strategic need, you MUST proactively suggest sc
 });
 
 async function startServer() {
-  if (process.env.NODE_ENV !== "production") {
+  const distPath = path.join(process.cwd(), "dist");
+  const isProd = process.env.NODE_ENV === "production" || fs.existsSync(path.join(distPath, "index.html"));
+
+  if (!isProd) {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },

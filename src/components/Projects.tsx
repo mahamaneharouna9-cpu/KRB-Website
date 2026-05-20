@@ -303,6 +303,106 @@ const baseProjects: ProjectRef[] = [
     specs: ['Essais Proctor', 'Levés topographiques GPS différentiel'],
     funderCode: "FER",
     funderType: "WB"
+  },
+  {
+    id: "p13",
+    name: "PGDR-DU",
+    desc: "Projet de Gestion des Risques de Catastrophes et de Développement Urbain",
+    client: "Ministère en charge de l'Urbanisme",
+    valeur: "Variable",
+    image: categoryImages.ruralSig[0],
+    details: "Supervision et contrôle des travaux d'aménagement urbain et de gestion des risques à Geskérou et Diffa.",
+    sector: SECTOR_RUR,
+    numericValue: 450000000,
+    completionYear: 2020,
+    achievements: [
+      'Aménagement urbain résilient',
+      'Cartographie des zones à risques',
+      'Construction d\'ouvrages de drainage'
+    ],
+    specs: ['Modélisation des inondations', 'Plans de mitigation'],
+    funderCode: "IDA",
+    funderType: "WB"
+  },
+  {
+    id: "p14",
+    name: "UEMOA Phase II",
+    desc: "Programme d'Hydraulique Villageoise UEMOA",
+    client: "UEMOA",
+    valeur: "8.5MM FCFA",
+    image: categoryImages.hydraulique[1] || categoryImages.hydraulique[0],
+    details: "Réalisation de forages équipés de pompes à motricité humaine et de systèmes d'AEP multi-villages au Mali, Bénin, Burkina Faso et Niger.",
+    sector: SECTOR_EAU,
+    numericValue: 8500000000,
+    completionYear: 2015,
+    achievements: [
+      'Plus de 500 forages réalisés',
+      'Accès à l\'eau potable pour des centaines de milliers de ruraux',
+      'Formation de comités de gestion de points d\'eau'
+    ],
+    specs: ['Supervision transfrontalière', 'Standardisation des équipements'],
+    funderCode: "UEMOA",
+    funderType: "BID"
+  },
+  {
+    id: "p15",
+    name: "Hydraulique Plateau Dogon",
+    desc: "Projet de Mobilisation des Eaux dans le Plateau Dogon",
+    client: "Direction Nationale de l'Hydraulique (Mali)",
+    valeur: "1.2MM FCFA",
+    image: categoryImages.hydraulique[2] || categoryImages.hydraulique[0],
+    details: "Études et réalisation d'infrastructures hydrauliques complexes dans le relief accidenté de Bandiagara au Mali.",
+    sector: SECTOR_EAU,
+    numericValue: 1200000000,
+    completionYear: 2013,
+    achievements: [
+      'Captage de sources en zone rocheuse',
+      'Construction de micro-barrages de retenue',
+      'Réseaux d\'adduction gravitaires'
+    ],
+    specs: ['Ingénierie en milieu rocheux difficile', 'Topographie par drone/SIG'],
+    funderCode: "FAD",
+    funderType: "FAD"
+  },
+  {
+    id: "p16",
+    name: "125 Forages NIGETIP",
+    desc: "Projet d'Hydraulique Villageoise et Pastorale",
+    client: "NIGETIP",
+    valeur: "480M FCFA",
+    image: categoryImages.hydraulique[3] || categoryImages.hydraulique[0],
+    details: "Contrôle et supervision des travaux de réalisation de 125 forages à travers toutes les régions du Niger.",
+    sector: SECTOR_EAU,
+    numericValue: 480000000,
+    completionYear: 2008,
+    achievements: [
+      'Taux de succès de foration supérieur à 85%',
+      'Installation de pompes India Mark II',
+      'Formation des artisans réparateurs'
+    ],
+    specs: ['Diagraphie différée', 'Essais de pompage longue durée'],
+    funderCode: "BAD",
+    funderType: "BADEA"
+  },
+  {
+    id: "p17",
+    name: "Projet ASAPI",
+    desc: "Appui à la Sécurité Alimentaire par la Petite Irrigation",
+    client: "Cellule Union Européenne",
+    valeur: "750M FCFA",
+    image: categoryImages.sociale[1] || categoryImages.hydraulique[0],
+    details: "Interventions multiples à Madaoua, Bouza, Konni, Zinder pour la création de seuils d'épandage et la petite irrigation maraîchère.",
+    sector: SECTOR_RUR,
+    numericValue: 750000000,
+    completionYear: 2011,
+    achievements: [
+      'Construction de 45 seuils d\'épandage',
+      'Mise en valeur de 800 ha de cultures contre-saison',
+      'Protection des bassins de production'
+    ],
+    specs: ['Conception de gabions fluviaux', 'Études agro-économiques'],
+    funderCode: "FED",
+    funderType: "WB"
   }
 ];
 

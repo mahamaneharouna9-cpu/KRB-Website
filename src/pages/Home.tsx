@@ -36,9 +36,9 @@ const timelineData = [
     description: "Attribution de l'étude d'harmonisation de l'Hydraulique Villageoise de l'UEMOA couvrant 8 pays (Bénin, Burkina, Côte d'Ivoire, Guinée Bissau, Mali, Niger, Sénégal, Togo). Déploiement de la succursale SN-ERFAC à Ouagadougou."
   },
   {
-    year: "2016-2020",
-    title: "Ingénierie de la Résilience (CBLT)",
-    description: "Interventions sur les écosystèmes ultra-sensibles. Ingénierie pour le programme PRESIBALT du Bassin du Lac Tchad (dragage, restauration de 2000 ha) et lancement des études du PRRIA pour la sécurité alimentaire."
+    year: "2018-2023",
+    title: "Résilience Climatique (PRESIBALT & PRRIA)",
+    description: "Surveillance et contrôle des travaux du Programme de Réhabilitation du Bassin du lac Tchad (PRESIBALT) et du Projet de Renforcement de la Résilience afin de lutter contre l'Insécurité Alimentaire (PRRIA) au Niger, financés par la BID et le FAD."
   },
   {
     year: "2021-Présent",
@@ -82,7 +82,7 @@ const sectorsData = [
   {
     id: 'hydraulique',
     title: "Ingénierie de l'Eau & Hydraulique",
-    image: categoryImages.hydraulique[0] || homeImgs[0],
+    image: "https://storage.googleapis.com/krbengineering/New/Autres/Autres/13%20(2).jpg",
     className: 'md:col-span-2'
   },
   {
@@ -94,13 +94,13 @@ const sectorsData = [
   {
     id: 'urbain',
     title: "Développement Rural & Urbain",
-    image: categoryImages.ruralSig[0] || homeImgs[2],
+    image: "https://storage.googleapis.com/krbengineering/New/Devellopement%20Rural%20et%20Urbain/Devellopement%20Rural%20et%20Urbain/3.jpg",
     className: 'md:col-span-2'
   },
   {
     id: 'humaine',
     title: "Ingénierie Sociale",
-    image: categoryImages.sociale[0] || homeImgs[3],
+    image: "https://storage.googleapis.com/krbengineering/New/Ingieneire%20Sociale/Ingieneire%20Sociale/4.jpg",
     className: 'md:col-span-2'
   },
   {

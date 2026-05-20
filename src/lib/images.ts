@@ -61,29 +61,37 @@ const ensureSafeImages = (images: string[]) => {
 };
 
 export const categoryImages = {
-  autres: ensureSafeImages(getFolderImages("AUTRES")),
+  autres: ensureSafeImages([
+    ...getFolderImages("New/Autres"),
+    ...getFolderImages("AUTRES")
+  ]),
   hydraulique: ensureSafeImages([
+    ...getFolderImages("New/Ingienerie eau et hydraulique"),
     ...getFolderImages("Ingénierie de l'Eau & Hydraulique"),
     getCleanImage('1778112209209'),
     getCleanImage('1778110779689'),
     getCleanImage('1778112165114'),
   ]),
   environnement: ensureSafeImages([
+    ...getFolderImages("New/Maitrise environnementale"),
     ...getFolderImages("Maîtrise Environnementale"),
     getCleanImage('1778110884007'),
     getCleanImage('1778112222216'),
   ]),
   ruralSig: ensureSafeImages([
+    ...getFolderImages("New/Devellopement Rural et Urbain"),
     ...getFolderImages("Développement Rural & Urbain"),
     getCleanImage('1778110799142'),
     getCleanImage('1778112180879'),
   ]),
   energie: ensureSafeImages([
+    ...getFolderImages("New/Mines et energie"),
     ...getFolderImages("Mines et Energie"),
     getCleanImage('1778110789403'),
     getCleanImage('1778112194658'),
   ]),
   sociale: ensureSafeImages([
+    ...getFolderImages("New/Ingieneire Sociale"),
     ...getFolderImages("Ingénierie Sociale"),
     getCleanImage('1778112165114'),
     getCleanImage('1778110779689')
