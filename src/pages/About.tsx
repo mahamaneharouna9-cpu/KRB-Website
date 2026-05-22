@@ -25,7 +25,7 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
             className="font-display-xl text-display-xl text-primary mb-6"
           >
-            {t("L'Expertise Éprouvée")}
+            {t("Expertise")}
           </motion.h1>
           <motion.blockquote 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
@@ -135,26 +135,7 @@ export default function About() {
               </li>
             </ul>
 
-            <h3 className="font-headline-md text-headline-md text-primary mt-8 mb-4">{t("Notre Équipe Clé")}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { name: "MAHAMAN INTCHI Amadou Roufaï", role: "Président Directeur Général (CEO)" },
-                { name: "YAYA Madougou", role: "Ingénieur Agroéconomiste, Chef de mission" },
-                { name: "Moustapha Gambo MATO", role: "Ingénieur Génie Rural, Chef d'équipe" },
-                { name: "Amadou SALAOU", role: "Ingénieur Génie Rural, Chef de projet" },
-                { name: "MAMADOU Mansour", role: "Ingénieur Génie Rural, Chef de mission" },
-                { name: "Abdoukarim ATAHIROU", role: "Expert Senior, Chef de mission" },
-                { name: "SANI ADO KATO", role: "Environnementaliste" },
-                { name: "MOUTARI KABIROU", role: "Sociologue" },
-                { name: "KALIPE Noel Kouamé", role: "Ingénieur Génie Civil" },
-                { name: "Garba ABOUBACAR", role: "Sociologue" }
-              ].map((member, i) => (
-                <div key={i} className="bg-surface-container-low p-3 rounded border border-outline-variant flex flex-col justify-center">
-                  <span className="font-bold text-sm text-on-surface block">{member.name}</span>
-                  <span className="text-xs text-on-surface-variant block">{member.role}</span>
-                </div>
-              ))}
-            </div>
+
           </motion.div>
           {/* High density data table representation */}
           <motion.div 

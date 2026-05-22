@@ -3,17 +3,15 @@ import { Droplets, Leaf, Map, GraduationCap, CheckCircle, Users, Zap } from 'luc
 import { motion } from 'motion/react';
 import { categoryImages } from '../lib/images';
 import { useTranslation } from 'react-i18next';
-import servicesImgEau from '../assets/images/regenerated_image_1779410618567.jpg';
-import servicesImgEnergie from '../assets/images/regenerated_image_1779410620156.jpg';
 
 export default function Services() {
   const { t } = useTranslation();
   const heroImage = "https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/IMG_20190707_111413_2.jpg";
-  const eauImage = servicesImgEau;
+  const eauImage = "https://storage.googleapis.com/krbengineering/Final%20update/1.jpg";
   const envImage = "https://storage.googleapis.com/krbengineering/New/Maitrise%20environnementale/Maitrise%20environnementale/6.jpg";
   const ruralImage = "https://storage.googleapis.com/krbengineering/D%C3%A9veloppement%20Rural%20&%20Urbain/D%C3%A9veloppement%20Rural%20&%20Urbain/aire%20Doungouro%20(2).JPG";
   const socialImage = "https://storage.googleapis.com/krbengineering/Ing%C3%A9nierie%20Sociale/Ing%C3%A9nierie%20Sociale/IMG_20180909_134200.jpg";
-  const energieImage = servicesImgEnergie;
+  const energieImage = "https://storage.googleapis.com/krbengineering/Final%20update/BILD0047.JPG";
   
   return (
     <div className="flex flex-col min-h-screen">

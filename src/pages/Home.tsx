@@ -6,12 +6,6 @@ import InteractiveImageCard from '../components/InteractiveImageCard';
 import { categoryImages, getImages } from '../lib/images';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import homeImgHydraulique from '../assets/images/regenerated_image_1779410559171.jpg';
-import homeImgEnvironnement from '../assets/images/regenerated_image_1779410561123.jpg';
-import homeImgUrbain from '../assets/images/regenerated_image_1779410566808.jpg';
-import homeImgHumaine from '../assets/images/regenerated_image_1779410572490.jpg';
-import homeImgMines from '../assets/images/regenerated_image_1779410605366.jpg';
-
 const homeImgs = getImages(15, true); // fallback images
 
 const timelineData = [
@@ -88,31 +82,31 @@ const sectorsData = [
   {
     id: 'hydraulique',
     title: "Ingénierie de l'Eau & Hydraulique",
-    image: homeImgHydraulique,
+    image: "https://storage.googleapis.com/krbengineering/Final%20update/13%20(2).jpg",
     className: 'md:col-span-2'
   },
   {
     id: 'environnement',
     title: "Maîtrise Environnementale",
-    image: homeImgEnvironnement,
+    image: "https://storage.googleapis.com/krbengineering/Final%20update/BILD5525.JPG",
     className: 'md:col-span-3'
   },
   {
     id: 'urbain',
     title: "Développement Rural & Urbain",
-    image: homeImgUrbain,
+    image: "https://storage.googleapis.com/krbengineering/Final%20update/8.jpg",
     className: 'md:col-span-2'
   },
   {
     id: 'humaine',
     title: "Ingénierie Sociale",
-    image: homeImgHumaine,
+    image: "https://storage.googleapis.com/krbengineering/Final%20update/IMG_20180912_153419.jpg",
     className: 'md:col-span-2'
   },
   {
     id: 'mines',
     title: "Mines et Energie",
-    image: homeImgMines,
+    image: "https://storage.googleapis.com/krbengineering/Final%20update/BILD0047.JPG",
     className: 'md:col-span-1'
   }
 ];

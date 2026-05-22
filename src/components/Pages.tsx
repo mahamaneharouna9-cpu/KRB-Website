@@ -717,9 +717,9 @@ export const ContactPage = () => {
              <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/PGRCDU.jpg" alt="PGRCDU" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
            </div>
 
-           {/* PRRIA */}
+           {/* BOAD */}
            <div className="flex items-center justify-center group grayscale hover:grayscale-0 transition-all duration-300">
-             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/PRRIA.jpg" alt="PRRIA" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
+             <img src="https://storage.googleapis.com/krbengineering/Krb%20partner%20Logos/Krb%20partner%20Logos/BOAD.png" alt="BOAD" className="h-10 md:h-14 w-auto object-contain mix-blend-multiply" />
            </div>
         </div>
       </motion.div>
