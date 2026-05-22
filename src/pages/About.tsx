@@ -42,6 +42,7 @@ export default function About() {
         </motion.div>
       </header>
 
+
       {/* Pillars Bento Grid Section */}
       <section className="max-w-[1280px] mx-auto px-4 md:px-8 py-section-padding">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
@@ -61,7 +62,7 @@ export default function About() {
               <span className="material-symbols-outlined text-primary text-2xl">architecture</span>
             </div>
             <h3 className="font-headline-md text-headline-md text-primary mb-stack-sm flex items-center justify-between">
-              {t("L'Expertise Éprouvée")}
+              {t("Expertise")}
               <span className="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1">arrow_forward</span>
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant">
@@ -168,6 +169,22 @@ export default function About() {
               </table>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Directeur Général Section */}
+      <section className="max-w-[1280px] mx-auto px-4 md:px-8 pb-section-padding">
+        <div className="bg-surface-container-low border border-outline-variant rounded-2xl p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center shadow-sm hover:shadow-md transition-shadow">
+          <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-white shadow-lg overflow-hidden flex-shrink-0 bg-surface-container-highest flex items-center justify-center">
+             <img src="https://storage.googleapis.com/krbengineering/DG/PHOTO%20DG%2010.JPG" alt="MAHAMAN INTCHI Amadou Roufaï" className="w-full h-full object-cover" />
+          </div>
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="font-headline-lg text-headline-lg text-primary mb-2">MAHAMAN INTCHI Amadou Roufaï</h2>
+            <p className="font-label-md text-label-md text-secondary tracking-widest uppercase mb-4">Directeur Général (CEO)</p>
+            <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+              {t("Directeur Général et fondateur de KRB Ingénieurs Conseils. Il dirige le cabinet avec une vision stratégique axée sur l'excellence et le développement durable depuis 1996, mettant à profit des décennies d'expertise dans les aménagements et les sciences de la terre en Afrique de l'Ouest.")}
+            </p>
+          </div>
         </div>
       </section>
 
