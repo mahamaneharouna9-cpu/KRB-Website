@@ -6,6 +6,11 @@ import InteractiveImageCard from '../components/InteractiveImageCard';
 import { categoryImages, getImages } from '../lib/images';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import homeImgHydraulique from '../assets/images/regenerated_image_1779410559171.jpg';
+import homeImgEnvironnement from '../assets/images/regenerated_image_1779410561123.jpg';
+import homeImgUrbain from '../assets/images/regenerated_image_1779410566808.jpg';
+import homeImgHumaine from '../assets/images/regenerated_image_1779410572490.jpg';
+import homeImgMines from '../assets/images/regenerated_image_1779410605366.jpg';
 
 const homeImgs = getImages(15, true); // fallback images
 
@@ -78,35 +83,36 @@ const TimelineItem = ({ year, title, description, isLast }: any) => {
   );
 };
 
+
 const sectorsData = [
   {
     id: 'hydraulique',
     title: "Ingénierie de l'Eau & Hydraulique",
-    image: "https://storage.googleapis.com/krbengineering/New/Autres/Autres/13%20(2).jpg",
+    image: homeImgHydraulique,
     className: 'md:col-span-2'
   },
   {
     id: 'environnement',
     title: "Maîtrise Environnementale",
-    image: categoryImages.environnement[0] || homeImgs[1],
+    image: homeImgEnvironnement,
     className: 'md:col-span-3'
   },
   {
     id: 'urbain',
     title: "Développement Rural & Urbain",
-    image: "https://storage.googleapis.com/krbengineering/New/Devellopement%20Rural%20et%20Urbain/Devellopement%20Rural%20et%20Urbain/3.jpg",
+    image: homeImgUrbain,
     className: 'md:col-span-2'
   },
   {
     id: 'humaine',
     title: "Ingénierie Sociale",
-    image: "https://storage.googleapis.com/krbengineering/New/Ingieneire%20Sociale/Ingieneire%20Sociale/4.jpg",
+    image: homeImgHumaine,
     className: 'md:col-span-2'
   },
   {
     id: 'mines',
     title: "Mines et Energie",
-    image: categoryImages.energie[0] || homeImgs[4],
+    image: homeImgMines,
     className: 'md:col-span-1'
   }
 ];
@@ -124,7 +130,7 @@ export default function Home() {
       {/* Intro Section */}
       <section className="relative bg-surface-container-low py-24 md:py-40 border-t border-outline-variant overflow-hidden z-20 shadow-[-0_10px_40px_rgba(0,0,0,0.05)]">
         <img loading="lazy" 
-          alt="Ingénierie Stratégique Background" 
+          alt="Ingénierie de Développement Background" 
           className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" 
           src="https://storage.googleapis.com/krbengineering/AUTRES/AUTRES/IMG_20180914_123128.jpg"
         />
@@ -141,7 +147,7 @@ export default function Home() {
               {t('KRB Ingénieurs Conseils')}
             </span>
             <h1 className="font-display-lg text-4xl sm:text-5xl lg:text-5xl xl:text-6xl text-primary font-bold tracking-tight leading-tight">
-              {t('Ingénierie Stratégique pour les Environnements Arides et Semi-Arides.')}
+              {t('Ingénierie de Développement pour les Environnements Arides et Semi-Arides.')}
             </h1>
             <p className="font-body-lg text-lg md:text-xl text-on-surface-variant max-w-3xl leading-relaxed">
               {t("Depuis 1996, KRB Ingénieurs Conseils déploie une expertise technique de pointe pour le développement durable, la gestion de l'eau et l'aménagement du territoire en Afrique de l'Ouest.")}
